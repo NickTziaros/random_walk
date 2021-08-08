@@ -24,6 +24,7 @@ class robot():
 		self.vel.angular.z=angular
 		self.pub.publish(self.vel)
 	
-	def print_odom(self):
-		rospy.loginfo(self.robot_pose[0])
-		rospy.loginfo(self.robot_pose[1])
+	def get_odom(self):
+		# rospy.loginfo(self.robot_pose[0])
+		# rospy.loginfo(self.robot_pose[1])
+		return self.robot_pose

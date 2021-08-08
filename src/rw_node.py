@@ -12,7 +12,8 @@ def main():
 
     while not rospy.is_shutdown():
         r.publish_vel(0.1,0.2) 
-        r.print_odom()
+        odom=r.get_odom()
+        print(r.get_odom())
         print(l.closest_point())
 
 
