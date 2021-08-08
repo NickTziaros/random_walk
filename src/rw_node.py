@@ -9,7 +9,7 @@ from    laser_class import laser
 
 def main():
     
-    
+
     while not rospy.is_shutdown():
         r.publish_vel(0.1,0.2) 
         r.print_odom()
@@ -18,9 +18,11 @@ def main():
 
 if __name__ == '__main__':
     try:
+        args=rospy.myargv(argv=sys.argv)
+        robotname= args[1]
         rospy.init_node('Random_Walk', anonymous=True)
-        r=robot("tb3_3")
-        l=laser("tb3_3")
+        r=robot(robotname)
+        l=laser(robotname)
         main()
     except rospy.ROSInterruptException:
         pass
