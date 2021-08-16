@@ -17,24 +17,44 @@ class robot():
 		self.pub = rospy.Publisher("/{}/cmd_vel".format(robotname),Twist, queue_size=10)
 		self.vel=Twist()
 		
+# -----------------------------------------------------------------------------------------
+		
 	def sub_callback(self,msg):
 		self.robot_pose=[msg.pose.pose.position.x,msg.pose.pose.position.y]
 		rot_q= msg.pose.pose.orientation
 		(roll,pitch,self.yaw)= euler_from_quaternion([rot_q.x,rot_q.y,rot_q.z,rot_q.w]) 
 
+# -----------------------------------------------------------------------------------------
 
 	def publish_vel(self,linear,angular):
 		self.vel.linear.x=linear
 		self.vel.angular.z=angular
 		self.pub.publish(self.vel)
-	
+
+# -----------------------------------------------------------------------------------------
+
 	def get_odom(self):
 		# rospy.loginfo(self.robot_pose[0])
 		# rospy.loginfo(self.robot_pose[1])
 		return self.robot_pose
 
+# -----------------------------------------------------------------------------------------
+
+	def obst_yaw(self,obst):
+		yaw=atan2(obst.y- self.robot_pose[1],obst.x- self.robot_pose[0])
+		return yaw
+
+# -----------------------------------------------------------------------------------------
+
 	def get_yaw_deg(self):
 		return self.rad2deg(self.yaw)
+
+# -----------------------------------------------------------------------------------------
+
+	def get_yaw(self):
+		return self.yaw
+
+# -----------------------------------------------------------------------------------------
 
 	def euclidean_distance(self, goal_point):
 		distance= sqrt(pow((goal_point[0] - self.robot_pose[0]), 2) +
@@ -42,29 +62,27 @@ class robot():
 
 		return distance
 
+# -----------------------------------------------------------------------------------------
+
 	def rad2deg(self,rad):
 		deg=round((rad*180)/pi,4)
 		return deg
 
+# -----------------------------------------------------------------------------------------
+
 	def fix_yaw(self,des_yaw):
+		self.publish_vel(0.0,0)
 		rospy.loginfo(self.rad2deg(des_yaw))
 		yaw_deg=self.get_yaw_deg()
 		angle_diff= self.rad2deg(des_yaw) - yaw_deg
-        # rospy.loginfo('yaw_deg   %s',yaw_deg)
-        # rospy.loginfo('angle goal%s',self.angle_deg(goal_point))
 		while abs(angle_diff )>5  and not rospy.is_shutdown():
 			if angle_diff < 0: 
-				speed=-0.2
+				speed=-0.6
 			else:
-				speed= 0.2
+				speed= 0.6
 			angle_diff= self.rad2deg(des_yaw) - self.get_yaw_deg()
 			rospy.loginfo(angle_diff)
 			self.publish_vel(0,speed)
-		
 
 
 
-
-
-# if __name__ == '__main__':
-# 	robot()

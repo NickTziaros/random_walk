@@ -72,6 +72,7 @@ class laser():
 		self.closest_point_pub.publish(p)
 		laser_point.x=p.point.x
 		laser_point.y=p.point.y
+		
 
 
 		# returns the point closer to the robot type=Point()
