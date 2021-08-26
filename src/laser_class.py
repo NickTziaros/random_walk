@@ -13,15 +13,15 @@ class laser():
 	
 	def __init__(self,robotname):
 
-		# rate=rospy.Rate(10)
+		# rate=rospy.Rate(50)
 		# rate.sleep()
 		self.robotname=robotname	
-		self.subs = rospy.Subscriber("/tb3_3/scan".format(robotname),LaserScan,self.Laser_callback)
-		self.closest_point_pub = rospy.Publisher("/tb3_3/closest_point".format(robotname),PointStamped, queue_size=20)
+		self.subs = rospy.Subscriber("/{}/scan".format(robotname),LaserScan,self.Laser_callback)
+		self.closest_point_pub = rospy.Publisher("/{}/closest_point".format(robotname),PointStamped, queue_size=20)
 		# subscribres to TF and listens at the transforms tha are published
 		self.listener=tf.TransformListener()
 		# we wait for the tranformations between sensor_laser and odom
-		self.listener.waitForTransform("/tb3_3/base_scan".format(self.robotname), "/tb3_3/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
+		self.listener.waitForTransform("/{}/base_scan".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
 
 
 
@@ -33,6 +33,11 @@ class laser():
 	def Laser_callback(self,msg):
 		self.laser=msg
 		
+	def get_front_min_range(self):
+		ranges_list=self.laser.ranges
+		front_rays=ranges_list[0:34]+ranges_list[325:359]
+		min_range=min(front_rays)
+		return min_range
 
 	def closest_point(self):
 		
@@ -56,14 +61,14 @@ class laser():
 		
 
 		point_transformed=PointStamped()
-		point_transformed.header.frame_id="tb3_3/base_scan".format(self.robotname)
+		point_transformed.header.frame_id="/{}/base_scan".format(self.robotname)
 		point_transformed.header.stamp= rospy.Time(0) 
 		# we include the proint we found
 		point_transformed.point=laser_point
 
 		try:
 			# we transform the point to odom frame
-			p=self.listener.transformPoint("/tb3_3/odom".format(self.robotname),point_transformed )
+			p=self.listener.transformPoint("/{}/odom".format(self.robotname),point_transformed )
 		except (tf.LookupException, tf.ConnectivityException,tf.ExtrapolationException):
 			print ("ERROR")
 

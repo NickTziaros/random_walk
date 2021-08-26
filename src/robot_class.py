@@ -61,7 +61,12 @@ class robot():
 				pow((goal_point[1] - self.robot_pose[1]), 2))
 
 		return distance
+# -----------------------------------------------------------------------------------------		
+	def euclidean_distance_laser(self, goal_point):
+		distance= sqrt(pow((goal_point.x - self.robot_pose[0]), 2) +
+				pow((goal_point.y - self.robot_pose[1]), 2))
 
+		return distance
 # -----------------------------------------------------------------------------------------
 
 	def rad2deg(self,rad):
@@ -72,17 +77,15 @@ class robot():
 
 	def fix_yaw(self,des_yaw):
 		self.publish_vel(0.0,0)
-		rospy.loginfo(self.rad2deg(des_yaw))
+		# rospy.loginfo(self.rad2deg(des_yaw))
 		yaw_deg=self.get_yaw_deg()
 		angle_diff= self.rad2deg(des_yaw) - yaw_deg
 		while abs(angle_diff )>5  and not rospy.is_shutdown():
 			if angle_diff < 0: 
-				speed=-0.6
+				speed=-0.8
 			else:
-				speed= 0.6
+				speed= 0.8
 			angle_diff= self.rad2deg(des_yaw) - self.get_yaw_deg()
-			rospy.loginfo(angle_diff)
+			# rospy.loginfo(angle_diff)
 			self.publish_vel(0,speed)
-
-
 
