@@ -23,7 +23,7 @@ def main():
             r.publish_vel(0.4,0)
             distance=r.euclidean_distance(odom)
             # rospy.loginfo(l.get_front_min_range())
-            if l.get_front_min_range()<0.4:
+            if l.get_front_min_range()<0.5:
                 new_heading=np.random.vonmises(0,0.4)  
                 r.fix_yaw(new_heading)              
                 # rospy.loginfo(r.rad2deg(obst_yaw))
@@ -38,7 +38,7 @@ if __name__ == '__main__':
         rospy.init_node('Random_Walk', anonymous=True)
         l=laser(robotname)
         r=robot(robotname)
-        rate = rospy.Rate(10)
+        rate = rospy.Rate(15)
         rate.sleep()
         main()
     except rospy.ROSInterruptException:
