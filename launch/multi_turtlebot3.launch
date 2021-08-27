@@ -41,9 +41,9 @@
     <arg name="debug" value="false"/>
   </include>  
 
-<include file="$(find turtlebot3_gazebo)/launch/multi_turtlebot3_slam.launch">
+<include file="$(find random_walk)/launch/multi_turtlebot3_slam.launch">
 </include>  
-<!-- <include file="$(find turtlebot3_gazebo)/launch/multi_map_merge.launch">
+<!-- <include file="$(find random_walk)/launch/multi_map_merge.launch">
 </include>  -->
 
 
