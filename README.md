@@ -2,7 +2,7 @@
 
 This Ros package maps the environment by implementing a random walk algorithm on a Swarm of Turtlebots 
 
-# **Depenencies**
+# **Dependencies**
 
 #### NumPy
 
