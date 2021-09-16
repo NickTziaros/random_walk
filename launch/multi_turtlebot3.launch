@@ -5,6 +5,7 @@
   <arg name="third_tb3"  default="tb3_2"/>    
   <arg name="fourth_tb3"  default="tb3_3"/>
   <arg name="fifth_tb3"  default="tb3_4"/>
+  <arg name="sixth_tb3"  default="tb3_5"/>
 
 
   <arg name="first_tb3_x_pos" default="-1.0"/>
@@ -32,6 +33,11 @@
   <arg name="fifth_tb3_z_pos" default=" 0.0"/>
   <arg name="fifth_tb3_yaw"   default=" 0"/>
 
+<!--   <arg name="sixth_tb3_x_pos" default=" 1.5"/>
+  <arg name="sixth_tb3_y_pos" default="-1 "/>
+  <arg name="sixth_tb3_z_pos" default=" 0.0"/>
+  <arg name="sixth_tb3_yaw"   default=" 0"/> -->
+
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <arg name="world_name" value="$(find random_walk)/world/box_world.world"/>
     <arg name="paused" value="false"/>
@@ -43,8 +49,8 @@
 
 <include file="$(find random_walk)/launch/multi_turtlebot3_slam.launch">
 </include>  
-<!-- <include file="$(find random_walk)/launch/multi_map_merge.launch">
-</include>  -->
+<include file="$(find random_walk)/launch/multi_map_merge.launch">
+</include> 
 
 
   <group ns = "$(arg first_tb3)">
@@ -99,6 +105,16 @@
 
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg fifth_tb3) -x $(arg fifth_tb3_x_pos) -y $(arg fifth_tb3_y_pos) -z $(arg fifth_tb3_z_pos) -Y $(arg fifth_tb3_yaw) -param robot_description" />
   </group>
+
+<!--   <group ns = "$(arg sixth_tb3)">
+    <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
+
+    <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
+      <param name="publish_frequency" type="double" value="50.0" />
+      <param name="tf_prefix" value="$(arg sixth_tb3)" />
+    </node>
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg sixth_tb3) -x $(arg sixth_tb3_x_pos) -y $(arg sixth_tb3_y_pos) -z $(arg sixth_tb3_z_pos) -Y $(arg sixth_tb3_yaw) -param robot_description" />
+  </group> -->
 
 
 <!-- Rviz node -->

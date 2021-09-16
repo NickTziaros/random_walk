@@ -16,7 +16,7 @@ def main():
     while not rospy.is_shutdown():
         
         step=levy.rvs(loc=6,scale=0.2)
-        print  (step)
+        rospy.loginfo("{}'s step= {}".format(robotname,step))
         odom=r.get_odom()
         distance=0
         new_heading=np.random.vonmises(0,0)
@@ -27,7 +27,7 @@ def main():
                 new_heading=np.random.vonmises(0,0)  
                 r.fix_yaw(new_heading)
                 step=levy.rvs(loc=6,scale=0.2)
-                print  (step)
+                rospy.loginfo("{}'s step= {}".format(robotname,step))
                 odom=r.get_odom()
                 distance=r.euclidean_distance(odom) 
             else:

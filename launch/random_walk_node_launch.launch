@@ -35,6 +35,11 @@
 	</group>
 
 
+<!-- 	<group ns="$(arg robot_name)_5">
+		<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_5 ">
+        </node> 
+
+	</group> -->
 
 
 

@@ -21,8 +21,8 @@
         </node> 
 
 	</group>
-<!-- 
-	<group ns="$(arg robot_name)_3">
+
+<!-- 	<group ns="$(arg robot_name)_3">
 		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_3 ">
         </node> 
 
@@ -35,7 +35,12 @@
 	</group>
 
 
+<!-- 	<group ns="$(arg robot_name)_5">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_5 ">
+        </node> 
 
+	</group>
+ -->
 
 
 
