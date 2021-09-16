@@ -38,7 +38,11 @@ class laser():
 		front_rays=ranges_list[0:34]+ranges_list[325:359]
 		min_range=min(front_rays)
 		return min_range
-
+	def get_front_max_range(self):
+		ranges_list=self.laser.ranges
+		front_rays=ranges_list[0:60]+ranges_list[300:359]
+		max_range=max(front_rays)
+		return max_range
 	def closest_point(self):
 		
 		

@@ -22,10 +22,10 @@
   <arg name="third_tb3_z_pos" default=" 0.0"/>
   <arg name="third_tb3_yaw"   default=" 0"/>
 
-  <arg name="fourth_tb3_x_pos" default=" 1"/>
+<!--   <arg name="fourth_tb3_x_pos" default=" 1"/>
   <arg name="fourth_tb3_y_pos" default="-1 "/>
   <arg name="fourth_tb3_z_pos" default=" 0.0"/>
-  <arg name="fourth_tb3_yaw"   default=" 0"/>
+  <arg name="fourth_tb3_yaw"   default=" 0"/> -->
 
   <arg name="fifth_tb3_x_pos" default=" -0.50"/>
   <arg name="fifth_tb3_y_pos" default=" -1"/>
@@ -33,7 +33,7 @@
   <arg name="fifth_tb3_yaw"   default=" 0"/>
 
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
-    <arg name="world_name" value="$(find random_walk)/world/complete_world.world"/>
+    <arg name="world_name" value="$(find random_walk)/world/box_world.world"/>
     <arg name="paused" value="false"/>
     <arg name="use_sim_time" value="true"/>
     <arg name="gui" value="true"/>
@@ -79,7 +79,7 @@
         <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg third_tb3) -x $(arg third_tb3_x_pos) -y $(arg third_tb3_y_pos) -z $(arg third_tb3_z_pos) -Y $(arg third_tb3_yaw) -param robot_description" />
   </group>
 
-  <group ns = "$(arg fourth_tb3)">
+<!--   <group ns = "$(arg fourth_tb3)">
     <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />
 
     <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" output="screen">
@@ -87,7 +87,7 @@
       <param name="tf_prefix" value="$(arg fourth_tb3)" />
     </node>
     <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model" args="-urdf -model $(arg fourth_tb3) -x $(arg fourth_tb3_x_pos) -y $(arg fourth_tb3_y_pos) -z $(arg fourth_tb3_z_pos) -Y $(arg fourth_tb3_yaw) -param robot_description" />
-  </group>
+  </group> -->
 
   <group ns = "$(arg fifth_tb3)">
     <param name="robot_description" command="$(find xacro)/xacro $(find turtlebot3_description)/urdf/turtlebot3_$(arg model).urdf.xacro" />

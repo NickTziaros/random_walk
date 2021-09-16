@@ -7,6 +7,7 @@ from    nav_msgs.msg import Odometry
 from    robot_class import robot
 from    laser_class import laser
 from    math import pi
+from scipy.stats import levy
 import  time    
 
 
@@ -14,25 +15,24 @@ def main():
 
     while not rospy.is_shutdown():
         
-        step=5
+        step=levy.rvs(loc=6,scale=0.2)
+        print  (step)
         odom=r.get_odom()
         distance=0
         new_heading=np.random.vonmises(0,0)
         r.fix_yaw(new_heading)    
-        while step-distance>0.05 and not rospy.is_shutdown():
-
-            # rospy.loginfo(l.get_front_min_range())
+        while step-distance>0 and not rospy.is_shutdown():
             if l.get_front_min_range()<1.5:
+                r.publish_vel(0,0)
                 new_heading=np.random.vonmises(0,0)  
                 r.fix_yaw(new_heading)
+                step=levy.rvs(loc=6,scale=0.2)
+                print  (step)
                 odom=r.get_odom()
-                distance=r.euclidean_distance(odom)
+                distance=r.euclidean_distance(odom) 
             else:
                 r.publish_vel(0.3,0)
                 distance=r.euclidean_distance(odom)
-     
-
-
 if __name__ == '__main__':
     try:
         args=rospy.myargv(argv=sys.argv)
