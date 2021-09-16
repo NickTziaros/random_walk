@@ -51,7 +51,4 @@ This Ros package maps the environment by implementing a random walk algorithm on
    * random_walk/launch/multi_map_merge.launch
    * random_walk/launch/levy_rw_node.launch
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 328e2bd7b8dbed757628c91e57da03c8c15e66e4
