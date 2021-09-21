@@ -13,15 +13,27 @@ class laser():
 	
 	def __init__(self,robotname):
 
+
+		self.robotname=robotname
+
+		#Gazebo 
+		self.subs = rospy.Subscriber("/{}/scan".format(robotname),LaserScan,self.Laser_callback)
+
+		# Stage
+		# self.subs = rospy.Subscriber("/{}/base_scan".format(robotname),LaserScan,self.Laser_callback)
+
+		self.closest_point_pub = rospy.Publisher("/{}/closest_point".format(robotname),PointStamped, queue_size=20)
 		# rate=rospy.Rate(50)
 		# rate.sleep()
-		self.robotname=robotname	
-		self.subs = rospy.Subscriber("/{}/scan".format(robotname),LaserScan,self.Laser_callback)
-		self.closest_point_pub = rospy.Publisher("/{}/closest_point".format(robotname),PointStamped, queue_size=20)
 		# subscribres to TF and listens at the transforms tha are published
 		self.listener=tf.TransformListener()
 		# we wait for the tranformations between sensor_laser and odom
+
+		# Gazebo
 		self.listener.waitForTransform("/{}/base_scan".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
+
+		# Stage
+		# self.listener.waitForTransform("/{}/base_laser_link".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
 
 
 
@@ -65,7 +77,10 @@ class laser():
 		
 
 		point_transformed=PointStamped()
+		# Gazebo
 		point_transformed.header.frame_id="/{}/base_scan".format(self.robotname)
+		# Stage
+		# point_transformed.header.frame_id="/{}/base_laser_link".format(self.robotname)
 		point_transformed.header.stamp= rospy.Time(0) 
 		# we include the proint we found
 		point_transformed.point=laser_point
