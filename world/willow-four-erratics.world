@@ -1,13 +1,18 @@
 define block model
 (
-  size [0.5 0.5 0.5]
+  size [20 0.5 0.5]
+  gui_nose 0
+)
+define block1 model
+(
+  size [1 1 1]
   gui_nose 0
 )
 
 define topurg ranger
 (
-	sensor( 			
-    range [ 0.0  30.0 ]
+  sensor(       
+    range [ 0.0  4.50 ]
     fov 270.25
    samples 1081
   )
@@ -58,22 +63,26 @@ window
   scale 28.806 
 )
 
-# load an environment bitmap
-floorplan
-( 
-  name "willow"
-  bitmap "willow-full.pgm"
-  size [54.0 58.7 0.5]
-  pose [ -29.350 27.000 0 90.000 ]
-)
 
-# throw in two robots
-erratic( pose [ -11.277 23.266 0 180.000 ] name "era" color "blue")
-erratic( pose [ -13.277 22.266 0 180.000 ] name "era2" color "blue")
-erratic( pose [ -13.277 23.266 0 180.000 ] name "era3" color "blue")
-erratic( pose [ -11.277 22.266 0 180.000 ] name "era4" color "blue")
-erratic( pose [ -10.277 23.266 0 180.000 ] name "era4" color "blue")
-erratic( pose [ -10.277 23.266 0 180.000 ] name "era4" color "blue")
-erratic( pose [ -10.277 22.266 0 180.000 ] name "era4" color "blue")
-erratic( pose [ -10.277 22.266 0 180.000 ] name "era4" color "blue")
-block( pose [ -13.924 25.020 0 180.000 ] color "red")
+
+# throw in eight robots
+erratic( pose [  0  0 0  0 ] name "era" color "blue")
+erratic( pose [  0.5  0 0 0  ] name "era2" color "blue")
+erratic( pose [  1  0 0 0  ] name "era3" color "blue")
+erratic( pose [ 1.5 0 0 0 ] name "era4" color "blue")
+erratic( pose [ 2 0 0 0  ] name "era5" color "blue")
+erratic( pose [ 2.5 0 0 0 ] name "era6" color "blue")
+erratic( pose [ 3 0 0 0] name "era7" color "blue")
+erratic( pose [ 3.5 0 0 0 ] name "era8" color "blue")
+block( pose [ 0 10 0 0 ] color "black")
+block( pose [ 10 0 0 90 ] color "black")
+block( pose [ 0 -10 0 0 ] color "black")
+block( pose [ -10 0 0 90 ] color "black")
+block1( pose [ 3.5 2.5 0 0 ] color "black")
+block1( pose [ -3.5 2.5 0 0 ] color "black")
+block1( pose [ 3.5 -2.5 0 0 ] color "black")
+block1( pose [ -3.5 -2.5 0 0 ] color "black")
+block1( pose [ 5.5 6.5 0 0 ] color "black")
+block1( pose [ -5.5 6.5 0 0 ] color "black")
+block1( pose [ 5.5 -6.5 0 0 ] color "black")
+block1( pose [ -5.5 -6.5 0 0 ] color "black")

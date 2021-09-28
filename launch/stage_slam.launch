@@ -11,19 +11,19 @@
   
 <!--   <remap from="scan" to ="robot_2/base_scan" />
  -->  <!-- Gmapping -->
-    <node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_0"  >
-    <param name="base_frame" value="robot_0/base_footprint"/>
-    <param name="odom_frame" value="robot_0/odom"/>
-    <param name="map_frame"  value="robot_0/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen" ns="robot_0" >
+    <param name="base_frame" value="/robot_0/base_footprint"/>
+    <param name="odom_frame" value="/robot_0/odom"/>
+    <param name="map_frame"  value="/robot_0/map"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -31,34 +31,34 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
+<!--     <param name="maxRange" value="6.0"/> -->
   </node>
-<node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_1" >
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen"  ns="robot_1" >
     <param name="base_frame" value="robot_1/base_footprint"/>
     <param name="odom_frame" value="robot_1/odom"/>
     <param name="map_frame"  value="robot_1/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -66,34 +66,34 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
-</node>
-<node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_2"  >
+<!--     <param name="maxRange" value="6.0"/> -->
+  </node>
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen"  ns="robot_2" >
     <param name="base_frame" value="robot_2/base_footprint"/>
     <param name="odom_frame" value="robot_2/odom"/>
     <param name="map_frame"  value="robot_2/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -101,34 +101,34 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
+<!--     <param name="maxRange" value="6.0"/> -->
   </node>
-<node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_3"  >
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen"  ns="robot_3" >
     <param name="base_frame" value="robot_3/base_footprint"/>
     <param name="odom_frame" value="robot_3/odom"/>
     <param name="map_frame"  value="robot_3/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -136,35 +136,34 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
+<!--     <param name="maxRange" value="6.0"/> -->
   </node>
-
-    <node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_4"  >
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen"  ns="robot_4" >
     <param name="base_frame" value="robot_4/base_footprint"/>
     <param name="odom_frame" value="robot_4/odom"/>
     <param name="map_frame"  value="robot_4/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -172,35 +171,35 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
+<!--     <param name="maxRange" value="6.0"/> -->
   </node>
 
-    <node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_5"  >
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen"  ns="robot_5" >
     <param name="base_frame" value="robot_5/base_footprint"/>
     <param name="odom_frame" value="robot_5/odom"/>
     <param name="map_frame"  value="robot_5/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -208,34 +207,34 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
+<!--     <param name="maxRange" value="6.0"/> -->
   </node>
-    <node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_6"  >
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen" ns="robot_6" >
     <param name="base_frame" value="robot_6/base_footprint"/>
     <param name="odom_frame" value="robot_6/odom"/>
     <param name="map_frame"  value="robot_6/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -243,34 +242,34 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
   </node>
-      <node pkg="gmapping" type="slam_gmapping" name="turtlebot3_slam_gmapping" output="screen" ns="robot_7"  >
+<!--     <param name="maxRange" value="6.0"/> -->
+    <node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen" ns="robot_7" >
     <param name="base_frame" value="robot_7/base_footprint"/>
     <param name="odom_frame" value="robot_7/odom"/>
     <param name="map_frame"  value="robot_7/map"/>
-    <param name="map_update_interval" value="4.0"/>
-    <param name="maxUrange" value="40"/>
-    <param name="minimumScore" value="100"/>
+    <param name="map_update_interval" value="2.0"/>
+    <param name="maxUrange" value="59.99"/>
+    <param name="minimumScore" value="0"/>
     <param name="linearUpdate" value="0.1"/>
-    <param name="angularUpdate" value="0.1"/>
-    <param name="temporalUpdate" value="0.5"/>
+    <param name="angularUpdate" value="0.5"/>
+    <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>
     <param name="lskip" value="0"/>
-    <param name="particles" value="180"/>
+    <param name="particles" value="30"/>
     <param name="sigma" value="0.05"/>
     <param name="kernelSize" value="1"/>
     <param name="lstep" value="0.05"/>
@@ -278,19 +277,19 @@
     <param name="iterations" value="5"/>
     <param name="lsigma" value="0.075"/>
     <param name="ogain" value="3.0"/>
-    <param name="srr" value="0.01"/>
-    <param name="srt" value="0.02"/>
-    <param name="str" value="0.01"/>
-    <param name="stt" value="0.02"/>
+    <param name="srr" value="0.1"/>
+    <param name="srt" value="0.2"/>
+    <param name="str" value="0.1"/>
+    <param name="stt" value="0.2"/>
     <param name="resampleThreshold" value="0.5"/>
-    <param name="xmin" value="-30.0"/>
-    <param name="ymin" value="-30.0"/>
-    <param name="xmax" value="30.0"/>
-    <param name="ymax" value="30.0"/>
+    <param name="xmin" value="-12.0"/>
+    <param name="ymin" value="-12.0"/>
+    <param name="xmax" value="12.0"/>
+    <param name="ymax" value="12.0"/>
     <param name="llsamplerange" value="0.01"/>
     <param name="llsamplestep" value="0.01"/>
     <param name="lasamplerange" value="0.005"/>
     <param name="lasamplestep" value="0.005"/>
-    <param name="maxRange" value="6.0"/>
+<!--     <param name="maxRange" value="6.0"/> -->
   </node>
 </launch>  

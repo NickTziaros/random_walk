@@ -1,0 +1,18 @@
+<launch>
+<!--Remaps the /map topic produced by map_server to /ground_truth  -->
+<remap from="/map" to ="/ground_truth" /> 
+
+<!--Pass the ground truth map to the as an argument  -->
+<arg name="map_file" default="$(find random_walk)/stage_results/ground_truth3.yaml"/>
+
+<!-- Starts the Stage Simulation -->
+<node name="Stage" pkg="stage_ros" type="stageros" args="/home/nikos/catkin_ws/src/random_walk/world/willow-four-erratics.world">
+    </node>
+
+<!-- Starts the map_server with the ground truth map -->
+<node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+
+
+
+</launch>
