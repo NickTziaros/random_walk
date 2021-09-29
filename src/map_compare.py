@@ -34,7 +34,7 @@ def compare(ground_truth,current_map):
 def main():
 
 
-    rospy.init_node('map_compare', anonymous=True)
+    rospy.init_node('compare_maps', anonymous=True)
     rospy.Subscriber("/map", OccupancyGrid , callback)
     rospy.Subscriber("/ground_truth", OccupancyGrid , ground_truth_callback)
     rate = rospy.Rate(10)

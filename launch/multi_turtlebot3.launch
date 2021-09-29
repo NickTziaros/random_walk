@@ -49,8 +49,8 @@
 
 <include file="$(find random_walk)/launch/multi_turtlebot3_slam.launch">
 </include>  
-<include file="$(find random_walk)/launch/multi_map_merge.launch">
-</include> 
+<!-- <include file="$(find random_walk)/launch/multi_map_merge.launch">
+</include>  -->
 
 
   <group ns = "$(arg first_tb3)">
