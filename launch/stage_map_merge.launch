@@ -11,65 +11,65 @@
   <arg name="eighth_robot"  default="robot_7"/>
 
   <group ns="/robot_0/map_merge">
-    <param name="init_pose_x" value="0"/>
+    <param name="init_pose_x" value="-4"/>
     <param name="init_pose_y" value="0"/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value="0"/>
   </group>
   <group ns="/robot_1/map_merge">
-    <param name="init_pose_x" value="0.5"/>
+    <param name="init_pose_x" value="-3"/>
     <param name="init_pose_y" value="0 "/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value="0"/>
   </group>
   
   <group ns="/robot_2/map_merge">
-    <param name="init_pose_x" value=" 1"/>
+    <param name="init_pose_x" value=" -2"/>
     <param name="init_pose_y" value="0"/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value=" 0"/>
   </group>
 
   <group ns="/robot_3/map_merge">
-    <param name="init_pose_x" value=" 1.5"/>
+    <param name="init_pose_x" value=" -1"/>
     <param name="init_pose_y" value="0"/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value=" 0"/>
   </group>
 
   <group ns="/robot_4/map_merge">
-    <param name="init_pose_x" value="  2"/>
+    <param name="init_pose_x" value="  0"/>
     <param name="init_pose_y" value=" 0"/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value=" 0"/>
   </group>
 
   <group ns="/robot_5/map_merge">
-    <param name="init_pose_x" value=" 2.5"/>
+    <param name="init_pose_x" value=" 1"/>
     <param name="init_pose_y" value=" 0"/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value=" 0"/>
   </group>
 
-  <group ns="/robot_6/map_merge">
-    <param name="init_pose_x" value=" 3"/>
+<!--   <group ns="/robot_6/map_merge">
+    <param name="init_pose_x" value=" 2"/>
     <param name="init_pose_y" value=" 0"/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value=" 0"/>
   </group>
   <group ns="/robot_7/map_merge">
-    <param name="init_pose_x" value=" 3.5"/>
+    <param name="init_pose_x" value=" 3"/>
     <param name="init_pose_y" value=" 0 "/>
     <param name="init_pose_z" value=" 0.0"/>
     <param name="init_pose_yaw"   value="0"/>
-  </group>
+  </group> -->
 
 
 
     <node pkg="multirobot_map_merge" type="map_merge" respawn="false" name="map_merge" output="screen">
       <param name="robot_map_topic" value="map"/>
       <param name="robot_namespace" value=""/>
-      <param name="merged_map_topic" value="map"/>
+      <param name="merged_map_topic" value="merged_map"/>
       <param name="world_frame" value="/map"/>
       <param name="known_init_poses" value="true"/>
       <param name="merging_rate" value="15"/>
@@ -84,8 +84,8 @@
     <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg fourth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg fourth_robot)/map 200"/>  
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg fifth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg fifth_robot)/map 200"/> 
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg sixth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg sixth_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg seventh_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg seventh_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg eighth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg eighth_robot)/map 200"/>
+<!--   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg seventh_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg seventh_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg eighth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg eighth_robot)/map 200"/> -->
 
 
 </launch>

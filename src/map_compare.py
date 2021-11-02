@@ -35,7 +35,7 @@ def main():
 
 
     rospy.init_node('compare_maps', anonymous=True)
-    rospy.Subscriber("/map", OccupancyGrid , callback)
+    rospy.Subscriber("/merged_map", OccupancyGrid , callback)
     rospy.Subscriber("/ground_truth", OccupancyGrid , ground_truth_callback)
     rate = rospy.Rate(10)
     rate.sleep()

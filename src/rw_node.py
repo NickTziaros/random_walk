@@ -20,15 +20,16 @@ def main():
         new_heading=np.random.vonmises(0,0)
         r.fix_yaw(new_heading)    
         while step-distance>0.05 and not rospy.is_shutdown():
+            rate.sleep()
 
             # rospy.loginfo(l.get_front_min_range())
-            if l.get_front_min_range()<1.5:
+            if l.get_front_min_range()<2:
                 new_heading=np.random.vonmises(0,0)  
                 r.fix_yaw(new_heading)
                 odom=r.get_odom()
                 distance=r.euclidean_distance(odom)
             else:
-                r.publish_vel(0.3,0)
+                r.publish_vel(0.2,0)
                 distance=r.euclidean_distance(odom)
      
 

@@ -40,17 +40,18 @@
         </node> 
 
 	</group>
-		<group ns="$(arg robot_name)_6">
+	
+<!-- 	<group ns="$(arg robot_name)_6">
 		<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_6 ">
         </node> 
 
 	</group>
 
 	<group ns="$(arg robot_name)_7">
-		<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_6 ">
+		<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_7 ">
         </node> 
 
-	</group>
+	</group> -->
 
 
 

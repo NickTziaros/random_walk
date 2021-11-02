@@ -17,10 +17,10 @@ class laser():
 		self.robotname=robotname
 
 		#Gazebo 
-		self.subs = rospy.Subscriber("/{}/scan".format(robotname),LaserScan,self.Laser_callback)
+		# self.subs = rospy.Subscriber("/{}/scan".format(robotname),LaserScan,self.Laser_callback)
 
 		# Stage
-		# self.subs = rospy.Subscriber("/{}/base_scan".format(robotname),LaserScan,self.Laser_callback)
+		self.subs = rospy.Subscriber("/{}/base_scan_0".format(robotname),LaserScan,self.Laser_callback)
 
 		self.closest_point_pub = rospy.Publisher("/{}/closest_point".format(robotname),PointStamped, queue_size=20)
 		# rate=rospy.Rate(50)
@@ -30,10 +30,10 @@ class laser():
 		# we wait for the tranformations between sensor_laser and odom
 
 		# Gazebo
-		self.listener.waitForTransform("/{}/base_scan".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
+		# self.listener.waitForTransform("/{}/base_scan".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
 
 		# Stage
-		# self.listener.waitForTransform("/{}/base_laser_link".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
+		self.listener.waitForTransform("/{}/base_laser_link_0".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
 
 
 
@@ -47,12 +47,18 @@ class laser():
 		
 	def get_front_min_range(self):
 		ranges_list=self.laser.ranges
-		front_rays=ranges_list[0:34]+ranges_list[325:359]
+		#Gazebo
+		# front_rays=ranges_list[0:34]+ranges_list[325:359]
+		#Stage
+		front_rays=ranges_list[145:215]
 		min_range=min(front_rays)
 		return min_range
 	def get_front_max_range(self):
 		ranges_list=self.laser.ranges
-		front_rays=ranges_list[0:60]+ranges_list[300:359]
+		#Gazebo
+		# front_rays=ranges_list[0:60]+ranges_list[300:359]
+		#Stage
+		front_rays=ranges_list[145:215]
 		max_range=max(front_rays)
 		return max_range
 	def closest_point(self):
@@ -78,9 +84,9 @@ class laser():
 
 		point_transformed=PointStamped()
 		# Gazebo
-		point_transformed.header.frame_id="/{}/base_scan".format(self.robotname)
+		# point_transformed.header.frame_id="/{}/base_scan".format(self.robotname)
 		# Stage
-		# point_transformed.header.frame_id="/{}/base_laser_link".format(self.robotname)
+		point_transformed.header.frame_id="/{}/base_laser_link_0".format(self.robotname)
 		point_transformed.header.stamp= rospy.Time(0) 
 		# we include the proint we found
 		point_transformed.point=laser_point

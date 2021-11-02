@@ -16,7 +16,8 @@ class robot():
 		self.subs = rospy.Subscriber("/{}/odom".format(robotname),Odometry,self.sub_callback)
 		self.pub = rospy.Publisher("/{}/cmd_vel".format(robotname),Twist, queue_size=10)
 		self.vel=Twist()
-
+		self.rate = rospy.Rate(10)
+        
 		
 # -----------------------------------------------------------------------------------------
 		
@@ -83,10 +84,12 @@ class robot():
 		yaw_deg=self.get_yaw_deg()
 		angle_diff= self.rad2deg(des_yaw) - yaw_deg
 		while abs(angle_diff )>5  and not rospy.is_shutdown():
+			self.rate.sleep()
+
 			if angle_diff < 0: 
-				speed=-0.7
+				speed=-0.4
 			else:
-				speed= 0.7
+				speed= 0.4
 			angle_diff= self.rad2deg(des_yaw) - self.get_yaw_deg()
 			# rospy.loginfo(angle_diff)
 			self.publish_vel(0,speed)

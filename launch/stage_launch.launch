@@ -3,7 +3,7 @@
 <remap from="/map" to ="/ground_truth" /> 
 
 <!--Pass the ground truth map to the as an argument  -->
-<arg name="map_file" default="$(find random_walk)/stage_results/ground_truth3.yaml"/>
+<arg name="map_file" default="$(find random_walk)/stage_results/ground_truth_1.yaml"/>
 
 <!-- Starts the Stage Simulation -->
 <node name="Stage" pkg="stage_ros" type="stageros" args="/home/nikos/catkin_ws/src/random_walk/world/willow-four-erratics.world">
@@ -12,7 +12,8 @@
 <!-- Starts the map_server with the ground truth map -->
 <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
 
-
+<!-- Rviz node -->
+<node type="rviz" name="rviz" pkg="rviz" args="-d $(find random_walk)/rviz/multi_turtlebot3_slam.rviz" />
 
 
 </launch>

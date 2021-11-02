@@ -1,4 +1,4 @@
-include "turtlebot.inc"
+
 define block model
 (
   size [20 0.5 0.5]
@@ -13,9 +13,23 @@ define block1 model
 define topurg ranger
 (
   sensor(       
-    range [ 0.0  4.50 ]
-    fov 270.25
-   samples 1081
+    range [ 0.0  4.5 ]
+    fov 360
+    ranger_return 1.0
+   samples 360
+  )
+
+  # generic model properties
+  color "black"
+  size [ 0.05 0.05 0.1 ]
+)
+define topurg1 ranger
+(
+  sensor(       
+    range [ 0.0  4.5 ]
+    fov 360
+    ranger_return 1.0
+   samples 360
   )
 
   # generic model properties
@@ -26,11 +40,14 @@ define topurg ranger
 define erratic position
 (
   #size [0.415 0.392 0.25]
-  size [0.35 0.35 0.25]
+  size [0.25 0.25 0.25]
+  ranger_return 1.0
   origin [-0.05 0 0 0]
   gui_nose 1
   drive "diff"
-  topurg(pose [ 0.050 0.000 0 0.000 ])
+  odom_error [0.0 0.0 0.00 0.0]
+  topurg(pose [ 0.050 0.000 -0.2 0.000 ])
+  topurg1(pose [ 0.050 0.000 0 0.000 ])
 )
 
 define floorplan model
@@ -67,14 +84,14 @@ window
 
 
 # throw in eight robots
-erratic( pose [  0  0 0  0 ] name "era" color "blue")
-erratic( pose [  0.5  0 0 0  ] name "era2" color "blue")
-erratic( pose [  1  0 0 0  ] name "era3" color "blue")
-erratic( pose [ 1.5 0 0 0 ] name "era4" color "blue")
-erratic( pose [ 2 0 0 0  ] name "era5" color "blue")
-erratic( pose [ 2.5 0 0 0 ] name "era6" color "blue")
-erratic( pose [ 3 0 0 0] name "era7" color "blue")
-erratic( pose [ 3.5 0 0 0 ] name "era8" color "blue")
+erratic( pose [  -4  0 0  0 ] name "era" color "blue")
+erratic( pose [  -3  0 0 0  ] name "era2" color "blue")
+erratic( pose [  -2  0 0 0  ] name "era3" color "blue")
+erratic( pose [ -1 0 0 0 ] name "era4" color "blue")
+erratic( pose [ 0 0 0 0  ] name "era5" color "blue")
+erratic( pose [ 1 0 0 0 ] name "era6" color "blue")
+#erratic( pose [ 2 0 0 0] name "era7" color "blue")
+#erratic( pose [ 3 0 0 0 ] name "era8" color "blue")
 block( pose [ 0 10 0 0 ] color "black")
 block( pose [ 10 0 0 90 ] color "black")
 block( pose [ 0 -10 0 0 ] color "black")
@@ -87,4 +104,4 @@ block1( pose [ 5.5 6.5 0 0 ] color "black")
 block1( pose [ -5.5 6.5 0 0 ] color "black")
 block1( pose [ 5.5 -6.5 0 0 ] color "black")
 block1( pose [ -5.5 -6.5 0 0 ] color "black")
-
+#block1( pose [ 4 0 0 0 ] color "black")
