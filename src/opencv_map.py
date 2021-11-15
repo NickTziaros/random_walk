@@ -1,10 +1,11 @@
+#!/usr/bin/env python
 import numpy as np 
 import cv2
 
 
-img = cv2.imread("../stage_results/ground_truth3.pgm",0)
-img5=	cv2.imread("../stage_results/try_1lol.pgm",0)
-img2 = cv2.imread("../stage_results/try_1lol.pgm",0)
+img = cv2.imread("/home/nikos/catkin_ws/src/random_walk/stage_results/ground_truth_1.pgm",0)
+img5=	cv2.imread("/home/nikos/catkin_ws/src/random_walk/stage_results/try_1lol.pgm",0)
+img2 = cv2.imread("/home/nikos/catkin_ws/src/random_walk/stage_results/try_1lol.pgm",0)
 img3= img[40:440,40:440]
 img6= img[40:440,40:440]
 img4=img2[40:440,40:440]

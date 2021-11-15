@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<launch>
+	  <arg name="robot_name" default="robot"/>
+
+
+
+	<group ns="$(arg robot_name)_0">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_0 ">
+        </node> 
+
+	</group>
+
+	<group ns="$(arg robot_name)_1">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_1 ">
+        </node> 
+
+	</group>
+
+	<group ns="$(arg robot_name)_2">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_2 ">
+        </node> 
+
+	</group>
+
+	<group ns="$(arg robot_name)_3">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_3 ">
+        </node> 
+
+	</group>
+
+	<group ns="$(arg robot_name)_4">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_4 ">
+        </node> 
+
+	</group>
+
+
+	<group ns="$(arg robot_name)_5">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_5 ">
+        </node> 
+
+	</group>
+	
+<!-- 	<group ns="$(arg robot_name)_6">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_6 ">
+        </node> 
+
+	</group>
+
+	<group ns="$(arg robot_name)_7">
+		<node pkg="random_walk" name="levy_rw_node" type="levy_rw_node.py" output="screen" args="$(arg robot_name)_7 ">
+        </node> 
+
+	</group> -->
+
+
+
+
+
+
+
+</launch>

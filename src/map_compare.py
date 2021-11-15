@@ -18,11 +18,12 @@ def compare(ground_truth,current_map):
     for i in range(len(ground_truth)):
         if current_map[i]==ground_truth[i]:
             # print current_map[i]
+            
             counter=counter+1
-    print counter
-    print len(ground_truth)
-    print len(current_map)
-    percent=float(counter)/230400.0
+    # print counter
+    # print len(ground_truth)
+    # print len(current_map)
+    percent=float(counter)/232800.0
     print(str(percent*100)+"%")
     # print "{:.2f}".format(percent)
     # if ground_truth[122111]==current_map[122111]:

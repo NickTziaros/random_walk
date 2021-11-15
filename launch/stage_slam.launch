@@ -52,7 +52,7 @@
     <param name="map_frame"  value="robot_1/map"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="59.99"/>
-    <param name="minimumScore" value="100"/>
+    <param name="minimumScore" value="50"/>
     <param name="linearUpdate" value="1"/>
     <param name="angularUpdate" value="1"/>
     <param name="temporalUpdate" value="-0.5"/>
@@ -87,7 +87,7 @@
     <param name="map_frame"  value="robot_2/map"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="59.99"/>
-    <param name="minimumScore" value="100"/>
+    <param name="minimumScore" value="50"/>
     <param name="linearUpdate" value="1"/>
     <param name="angularUpdate" value="1"/>
     <param name="temporalUpdate" value="-0.5"/>
@@ -122,7 +122,7 @@
     <param name="map_frame"  value="robot_3/map"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="59.99"/>
-    <param name="minimumScore" value="100"/>
+    <param name="minimumScore" value="50"/>
     <param name="linearUpdate" value="1"/>
     <param name="angularUpdate" value="1"/>
     <param name="temporalUpdate" value="-0.5"/>
@@ -157,7 +157,7 @@
     <param name="map_frame"  value="robot_4/map"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="59.99"/>
-    <param name="minimumScore" value="100"/>
+    <param name="minimumScore" value="50"/>
     <param name="linearUpdate" value="1"/>
     <param name="angularUpdate" value="1"/>
     <param name="temporalUpdate" value="-0.5"/>
@@ -193,7 +193,7 @@
     <param name="map_frame"  value="robot_5/map"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="59.99"/>
-    <param name="minimumScore" value="100"/>
+    <param name="minimumScore" value="50"/>
     <param name="linearUpdate" value="1"/>
     <param name="angularUpdate" value="1"/>
     <param name="temporalUpdate" value="-0.5"/>
@@ -228,7 +228,7 @@
     <param name="map_frame"  value="robot_6/map"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="59.99"/>
-    <param name="minimumScore" value="100"/>
+    <param name="minimumScore" value="50"/>
     <param name="linearUpdate" value="1"/>
     <param name="angularUpdate" value="1"/>
     <param name="temporalUpdate" value="-0.5"/>
@@ -263,8 +263,8 @@
     <param name="map_frame"  value="robot_7/map"/>
     <param name="map_update_interval" value="2.0"/>
     <param name="maxUrange" value="59.99"/>
-    <param name="minimumScore" value="100"/>
-a    <param name="linearUpdate" value="1"/>
+    <param name="minimumScore" value="50"/>
+    <param name="linearUpdate" value="1"/>
     <param name="angularUpdate" value="1"/>
     <param name="temporalUpdate" value="-0.5"/>
     <param name="delta" value="0.05"/>

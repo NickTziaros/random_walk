@@ -5,6 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
+        - /Map1
         - /Map4
       Splitter Ratio: 0.36039602756500244
     Tree Height: 663
@@ -52,16 +53,16 @@ Visualization Manager:
       Plane Cell Count: 100
       Reference Frame: map
       Value: true
-    - Alpha: 1
+    - Alpha: 0.5
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: false
+      Enabled: true
       Name: Map
       Topic: /ground_truth
       Unreliable: false
       Use Timestamp: false
-      Value: false
+      Value: true
     - Alpha: 1
       Class: rviz/Map
       Color Scheme: map
@@ -76,22 +77,22 @@ Visualization Manager:
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map
       Topic: /robot_0/map
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 0.699999988079071
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
-      Enabled: true
+      Enabled: false
       Name: Map
       Topic: /robot_1/map
       Unreliable: false
       Use Timestamp: false
-      Value: true
+      Value: false
     - Alpha: 0.30000001192092896
       Class: rviz/Map
       Color Scheme: map
@@ -139,7 +140,7 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Angle: -0.019999440759420395
+      Angle: -3.725290298461914e-8
       Class: rviz/TopDownOrtho
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
@@ -149,11 +150,11 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Scale: 66.0206069946289
+      Scale: 25.32259178161621
       Target Frame: map
       Value: TopDownOrtho (rviz)
-      X: 13.049835205078125
-      Y: 12.45425033569336
+      X: 6.9290666580200195
+      Y: 1.0848740339279175
     Saved: ~
 Window Geometry:
   Displays:

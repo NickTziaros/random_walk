@@ -3,7 +3,7 @@
 <remap from="/map" to ="/ground_truth" /> 
 
 <!--Pass the ground truth map to the as an argument  -->
-<arg name="map_file" default="$(find random_walk)/stage_results/ground_truth_1.yaml"/>
+<arg name="map_file" default="$(find random_walk)/stage_results/ground_truth_2.yaml"/>
 
 <!-- Starts the Stage Simulation -->
 <node name="Stage" pkg="stage_ros" type="stageros" args="/home/nikos/catkin_ws/src/random_walk/world/willow-four-erratics.world">
