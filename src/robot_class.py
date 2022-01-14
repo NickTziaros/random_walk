@@ -2,6 +2,7 @@
 import  rospy
 from    geometry_msgs.msg import Twist,Point,Pose
 from    nav_msgs.msg import Odometry
+from 	std_msgs.msg import String,Float64
 from    math    import sqrt,pow,atan2,pi,cos,sin
 from 	tf import transformations
 from    tf.transformations import euler_from_quaternion
@@ -14,11 +15,14 @@ class robot():
 	def __init__(self,robotname):
 		self.robotname=robotname
 		self.subs = rospy.Subscriber("/{}/odom".format(robotname),Odometry,self.sub_callback)
+		self.subs = rospy.Subscriber("/coverage_percentage",Float64,self.coverage_callback)
 		self.pub = rospy.Publisher("/{}/cmd_vel".format(robotname),Twist, queue_size=10)
 		self.vel=Twist()
-		self.rate = rospy.Rate(10)
+		self.rate = rospy.Rate(8)
+		self.rate.sleep()
         
-		
+	def coverage_callback(self,msg):	
+		self.coverage_percentage=msg.data
 # -----------------------------------------------------------------------------------------
 		
 	def sub_callback(self,msg):
@@ -56,6 +60,14 @@ class robot():
 
 	def get_yaw(self):
 		return self.yaw
+
+# -----------------------------------------------------------------------------------------
+
+	def get_coverage_percentage(self):
+		return self.coverage_percentage
+
+
+
 
 # -----------------------------------------------------------------------------------------
 

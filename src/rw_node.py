@@ -7,13 +7,23 @@ from    nav_msgs.msg import Odometry
 from    robot_class import robot
 from    laser_class import laser
 from    math import pi
-import  time    
+import  time  
+import  os
+
+def kill_node(event):
+    print 'Timer called at ' + str(event.current_real)
+    os.system("rosnode kill "+ "rw_node")
+
+def kill_node_manual():
+    os.system("rosnode kill "+ "rw_node")
+    
 
 
 def main():
-
-    while not rospy.is_shutdown():
-        
+    rospy.Timer(rospy.Duration(600), kill_node)
+    coverage_percentage=r.get_coverage_percentage()
+    while not rospy.is_shutdown() and coverage_percentage<80:
+      
         step=5
         odom=r.get_odom()
         distance=0
@@ -21,7 +31,7 @@ def main():
         r.fix_yaw(new_heading)    
         while step-distance>0.05 and not rospy.is_shutdown():
             rate.sleep()
-
+            coverage_percentage=r.get_coverage_percentage()
             # rospy.loginfo(l.get_front_min_range())
             if l.get_front_min_range()<2:
                 new_heading=np.random.vonmises(0,0)  
@@ -31,7 +41,7 @@ def main():
             else:
                 r.publish_vel(0.2,0)
                 distance=r.euclidean_distance(odom)
-     
+    kill_node_manual()
 
 
 if __name__ == '__main__':

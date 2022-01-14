@@ -86,7 +86,8 @@
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg sixth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg sixth_robot)/map 200"/>
 <!--   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg seventh_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg seventh_robot)/map 200"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg eighth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg eighth_robot)/map 200"/> -->
-
+  
+  <node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node> 
 
 </launch>
 
