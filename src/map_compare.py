@@ -23,21 +23,30 @@ def convert2_2D(arr_1d):
 def compare(ground_truth,current_map):
     counter=0.0
     counter2=0.0
-    ground_truth_map_2d=convert2_2D(ground_truth_map)
-    ground_truth_cropped= ground_truth_map_2d[42:438,42:438]
+    # ground_truth_map_2d=convert2_2D(ground_truth_map)
+    # ground_truth_cropped= ground_truth_map_2d[42:438,42:438]
 
-    current_map_2d=convert2_2D(current_map)
-    current_map_cropped= current_map_2d[42:438,42:438]
+    # current_map_2d=convert2_2D(current_map)
+    # current_map_cropped= current_map_2d[42:438,42:438]
 
 
-    for i in range(np.shape(ground_truth_cropped)[0]):
-        for j in range(np.shape(ground_truth_cropped)[1]):
-            if current_map_cropped[i][j]>-1  :
+    # for i in range(np.shape(ground_truth_cropped)[0]):
+    #     for j in range(np.shape(ground_truth_cropped)[1]):
+    #         if current_map_cropped[i][j]>-1  :
+    #             counter=counter+1
+    #         if  ground_truth_cropped[i][j]==-1 :
+    #             counter2=counter2+1
+    # percent= (counter/(np.shape(ground_truth_cropped)[0]*np.shape(ground_truth_cropped)[1]-counter2))*100
+
+
+    for i in range(np.shape(ground_truth_map)[0]):
+        
+            if ogm[i]>-1  :
                 counter=counter+1
-            if  ground_truth_cropped[i][j]==-1 :
+            if  ground_truth_map[i] ==-1 :
                 counter2=counter2+1
+    percent= (counter/(np.shape(ground_truth_map)[0]-counter2))*100
 
-    percent= (counter/(np.shape(ground_truth_cropped)[0]*np.shape(ground_truth_cropped)[1]-counter2))*100
     pub.publish(percent)
 
 
