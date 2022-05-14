@@ -1,5 +1,18 @@
+#!/usr/bin/env python
+import  rospy
+import  os
+import roslaunch
+import  time 
 
-define block model
+#f = open(os.path.dirname(__file__) + '/../world/test.world', "w")
+f = open(os.path.split(os.path.dirname(__file__))[0] + '/world/test.world', "w")
+print(os.path.split(os.path.dirname(__file__))[0] + '/world/test.world')
+robots=rospy.get_param("/swarm/robots")
+print(robots)
+if (robots == None):
+     ROS_ERROR("Error in getting the robots param\n");
+
+f.write("""define block model
 (
   size [20 0.5 0.5]
   gui_nose 0
@@ -81,17 +94,6 @@ window
   scale 28.806 
 )
 
-
-
-# throw in eight robots
-erratic( pose [  -4  0 0  0] name "era" color "blue")
-erratic( pose [  -3  0 0 0  ] name "era2" color "blue")
-erratic( pose [  -2  0 0 0  ] name "era3" color "blue")
-erratic( pose [ -1 0 0 0 ] name "era4" color "blue")
-erratic( pose [ 0 0 0 0  ] name "era5" color "blue")
-erratic( pose [ 1 0 0 0 ] name "era6" color "blue")
-erratic( pose [ 2 0 0 0] name "era7" color "blue")
-erratic( pose [ 3 0 0 0 ] name "era8" color "blue")
 block( pose [ 0 10 0 0 ] color "black")
 block( pose [ 10 0 0 90 ] color "black")
 block( pose [ 0 -10 0 0 ] color "black")
@@ -104,4 +106,13 @@ block1( pose [ 5.5 6.5 0 0 ] color "black")
 block1( pose [ -5.5 6.5 0 0 ] color "black")
 block1( pose [ 5.5 -6.5 0 0 ] color "black")
 block1( pose [ -5.5 -6.5 0 0 ] color "black")
-#block1( pose [ 4 0 0 0 ] color "black")
+
+
+
+""")
+
+
+for i in range(robots):
+  f.write("erratic( pose [  "+str(i)+'  0 0  0] name "era'+str(i)+'" color "blue")\n')
+
+

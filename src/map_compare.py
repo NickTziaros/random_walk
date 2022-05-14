@@ -46,7 +46,9 @@ def compare(ground_truth,current_map):
             if  ground_truth_map[i] ==-1 :
                 counter2=counter2+1
     percent= (counter/(np.shape(ground_truth_map)[0]-counter2))*100
-
+    # print("shape :" + str(np.shape(ground_truth_map)[0]))
+    # print(counter)
+    # print(counter2)
     pub.publish(percent)
 
 

@@ -1,14 +1,14 @@
 <launch>
 
   
-  <arg name="first_robot"  default="robot_0"/>
-  <arg name="second_robot" default="robot_1"/>
-  <arg name="third_robot"  default="robot_2"/>    
-  <arg name="fourth_robot"  default="robot_3"/>
-  <arg name="fifth_robot"  default="robot_4"/>
-  <arg name="sixth_robot"  default="robot_5"/>
-  <arg name="seventh_robot"  default="robot_6"/>
-  <arg name="eighth_robot"  default="robot_7"/>
+  <arg name="0_robot"  default="robot_0"/>
+  <arg name="1_robot" default="robot_1"/>
+  <arg name="2_robot"  default="robot_2"/>    
+  <arg name="3_robot"  default="robot_3"/>
+  <arg name="4_robot"  default="robot_4"/>
+  <arg name="5_robot"  default="robot_5"/>
+  <arg name="6_robot"  default="robot_6"/>
+  <arg name="7_robot"  default="robot_7"/>
 
   <group ns="/robot_0/map_merge">
     <param name="init_pose_x" value="-4"/>
@@ -78,16 +78,16 @@
       <param name="estimation_confidence" value="1.0"/>
     </node>
 
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg first_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg first_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg second_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg second_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg third_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg third_robot)/map 200"/>
-    <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg fourth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg fourth_robot)/map 200"/>  
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg fifth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg fifth_robot)/map 200"/> 
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg sixth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg sixth_robot)/map 200"/>
-<!--   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg seventh_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg seventh_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg eighth_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg eighth_robot)/map 200"/> -->
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 0_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 0_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 1_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg 1_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 2_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg 2_robot)/map 200"/>
+    <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 3_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg 3_robot)/map 200"/>  
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 4_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg 4_robot)/map 200"/> 
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 5_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg 5_robot)/map 200"/>
+<!--   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 6_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg 6_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 7_robot)_tf_broadcaster" args="0 0 0 0 0 0 /map /$(arg 7_robot)/map 200"/> -->
   
-  <node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node> 
+  <!-- <node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node>  -->
 
 </launch>
 

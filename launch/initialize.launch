@@ -1,9 +1,13 @@
 <launch>
-
+<master auto="start"/>
+<!--Remaps the /map topic produced by map_server to /ground_truth  -->
 <remap from="/map" to ="/ground_truth" /> 
 
+<rosparam file="$(find random_walk)/config/config.yaml" />
 
-
+<node pkg="random_walk" name="add_robots" type="add_robot.py" output="screen"></node>
+<node pkg="random_walk" name="add_slam" type="add_slam.py" output="screen"></node>
+<node pkg="random_walk" name="add_mapmerge" type="add_mapmerge.py" output="screen"></node>
 
 <!--Pass the ground truth map to the as an argument  -->
 <arg name="map_file" default="$(find random_walk)/stage_results/ground_truth_2.yaml"/>
@@ -19,10 +23,5 @@
 <!-- Starts the Stage Simulation -->
 <!--  <node name="Stage" pkg="stage_ros" type="stageros" args="/home/nikos/catkin_ws/src/random_walk/world/test.world">
     </node> -->
-
-<!-- Starts the Stage Simulation -->
- <node name="Stage" pkg="stage_ros" type="stageros" args="/home/nikos/catkin_ws/src/random_walk/world/willow-four-erratics.world">
-    </node> 
-
 
 </launch>
