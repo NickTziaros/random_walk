@@ -7,6 +7,7 @@ import  time
 
 f = open(os.path.split(os.path.dirname(__file__))[0] + '/launch/test_mapmerge.launch', "w")
 robots=rospy.get_param("/swarm/robots")
+formation=rospy.get_param("/swarm/formation")
 print(robots)
 
 if (robots == None):
@@ -18,15 +19,34 @@ for i in range(robots):
 	f.write('<arg name="'+ str(i)+'_robot"  default="robot_'+ str(i)+'"/>\n')
 
 
+if (formation=="no") :
+  for i in range(robots):
+     f.write('''
+     <group ns="/robot_'''+ str(i)+'''/map_merge">
+     <param name="init_pose_x" value="'''+ str(i)+'''"/>
+     <param name="init_pose_y" value="0"/>
+     <param name="init_pose_z" value=" 0.0"/>
+     <param name="init_pose_yaw"   value="0"/>
+     </group>''') 
 
-for i in range(robots):
-	f.write('''
-	<group ns="/robot_'''+ str(i)+'''/map_merge">
-    	<param name="init_pose_x" value="'''+ str(i)+'''"/>
-    	<param name="init_pose_y" value="0"/>
-    	<param name="init_pose_z" value=" 0.0"/>
-    	<param name="init_pose_yaw"   value="0"/>
-  	</group>''')
+elif (formation=="box"):
+     j=0
+     k=-2
+     for i in range(robots):
+          if k==2:
+               k=-2
+               j=j-0.5
+
+          f.write('''
+          <group ns="/robot_'''+ str(i)+'''/map_merge">
+          <param name="init_pose_x" value="'''+ str(k)+'''"/>
+          <param name="init_pose_y" value="'''+ str(j)+'''"/>
+          <param name="init_pose_z" value=" 0.0"/>
+          <param name="init_pose_yaw"   value="0"/>
+          </group>''')
+
+          k=k+1
+
 
 
 f.write('''

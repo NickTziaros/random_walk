@@ -1,4 +1,4 @@
 swarm:
-   formation: 'no' #no, wedge, square or diamond
-   robots: 9 #used to "no" formation
-   
+   formation: 'no' #no, box
+   robots: 4 #used to "no" formation
+   map: 'box' #box,corridor

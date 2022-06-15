@@ -8,18 +8,32 @@ import  time
 f = open(os.path.split(os.path.dirname(__file__))[0] + '/world/test.world', "w")
 print(os.path.split(os.path.dirname(__file__))[0] + '/world/test.world')
 robots=rospy.get_param("/swarm/robots")
+formation=rospy.get_param("/swarm/formation")
+map=rospy.get_param("/swarm/map")
 print(robots)
 if (robots == None):
      ROS_ERROR("Error in getting the robots param\n");
 
-f.write("""define block model
+f.write("""
+  define block model
 (
   size [20 0.5 0.5]
+  gui_nose 0
+)
+  define block3 model
+(
+  size [30 0.5 0.5]
   gui_nose 0
 )
 define block1 model
 (
   size [1 1 1]
+  gui_nose 0
+)
+
+define block2 model
+(
+  size [10 0.5 0.5]
   gui_nose 0
 )
 
@@ -92,27 +106,89 @@ window
 
   rotate [ 0.000 -1.560 ]
   scale 28.806 
+  show_grid 0
 )
-
-block( pose [ 0 10 0 0 ] color "black")
-block( pose [ 10 0 0 90 ] color "black")
-block( pose [ 0 -10 0 0 ] color "black")
-block( pose [ -10 0 0 90 ] color "black")
-block1( pose [ 3.5 2.5 0 0 ] color "black")
-block1( pose [ -3.5 2.5 0 0 ] color "black")
-block1( pose [ 3.5 -2.5 0 0 ] color "black")
-block1( pose [ -3.5 -2.5 0 0 ] color "black")
-block1( pose [ 5.5 6.5 0 0 ] color "black")
-block1( pose [ -5.5 6.5 0 0 ] color "black")
-block1( pose [ 5.5 -6.5 0 0 ] color "black")
-block1( pose [ -5.5 -6.5 0 0 ] color "black")
-
-
-
 """)
+if (map=="box") :
+  f.write("""
+  block( pose [ 0 10 0 0 ] color "black")
+  block( pose [ 10 0 0 90 ] color "black")
+  block( pose [ 0 -10 0 0 ] color "black")
+  block( pose [ -10 0 0 90 ] color "black")
+  block1( pose [ 3.5 2.5 0 0 ] color "black")
+  block1( pose [ -3.5 2.5 0 0 ] color "black")
+  block1( pose [ 3.5 -2.5 0 0 ] color "black")
+  block1( pose [ -3.5 -2.5 0 0 ] color "black")
+  block1( pose [ 5.5 6.5 0 0 ] color "black")
+  block1( pose [ -5.5 6.5 0 0 ] color "black")
+  block1( pose [ 5.5 -6.5 0 0 ] color "black")
+  block1( pose [ -5.5 -6.5 0 0 ] color "black")
 
 
-for i in range(robots):
-  f.write("erratic( pose [  "+str(i)+'  0 0  0] name "era'+str(i)+'" color "blue")\n')
+
+  """)
+elif (map=="corridor") :
+  f.write("""
+  block2( pose [ 0 15 0 0 ] color "black")
+  block3( pose [ 5 0 0 90 ] color "black")
+  block2( pose [ 0 -15 0 0 ] color "black")
+  block3( pose [ -5 0 0 90 ] color "black")
+  
+
+
+
+  """)
+
+
+
+
+
+
+
+
+
+if (formation=="no") :
+  for i in range(robots):
+    f.write("erratic( pose [  "+str(i)+' 0  0 0  0] name "era'+str(i)+'" color "blue")\n')
+
+elif (formation=="box"):
+  j=0
+  k=-2
+  for i in range(robots):
+    if k==2 :
+      k=-2
+      j=j-0.5
+    f.write("erratic( pose [  "+str(k)+" "+str(j)+'  0 0  0] name "era'+str(i)+'" color "blue")\n')
+    k=k+1
+
+# elif (formation=="pyramid"):
+#   r = 0
+#   c=1
+#   # count=0
+#   # count1=0
+#   # rows=0
+#   for i in range(robots):
+    
+#     f.write("erratic( pose [  "+str(r)+" "+str(c)+'  0 0  0] name "era'+str(i)+'" color "blue")\n')
+
+
+
+#     r=r+0.5
+#     c=c+1
+
+#   print(rows)
+# Python 3.x code to demonstrate star pattern
+
+
+
+
+
+
+# Function to demonstrate printing pattern triangle
+
+
+
+  # f.write("erratic( pose [  "+str(k)+" "+str(j)+'  0 0  0] name "era'+str(i)+'" color "blue")\n')
+   
 
 

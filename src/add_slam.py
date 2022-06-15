@@ -67,5 +67,6 @@ for i in range(robots):
 	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_'''+str(i)+''' "></node> \n
 
 	</group>\n''')
+f.write('<node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node>\n')
 
 f.write("</launch>")

@@ -1,11 +1,23 @@
-define block model
+
+  define block model
 (
   size [20 0.5 0.5]
+  gui_nose 0
+)
+  define block3 model
+(
+  size [30 0.5 0.5]
   gui_nose 0
 )
 define block1 model
 (
   size [1 1 1]
+  gui_nose 0
+)
+
+define block2 model
+(
+  size [10 0.5 0.5]
   gui_nose 0
 )
 
@@ -78,29 +90,25 @@ window
 
   rotate [ 0.000 -1.560 ]
   scale 28.806 
+  show_grid 0
 )
 
-block( pose [ 0 10 0 0 ] color "black")
-block( pose [ 10 0 0 90 ] color "black")
-block( pose [ 0 -10 0 0 ] color "black")
-block( pose [ -10 0 0 90 ] color "black")
-block1( pose [ 3.5 2.5 0 0 ] color "black")
-block1( pose [ -3.5 2.5 0 0 ] color "black")
-block1( pose [ 3.5 -2.5 0 0 ] color "black")
-block1( pose [ -3.5 -2.5 0 0 ] color "black")
-block1( pose [ 5.5 6.5 0 0 ] color "black")
-block1( pose [ -5.5 6.5 0 0 ] color "black")
-block1( pose [ 5.5 -6.5 0 0 ] color "black")
-block1( pose [ -5.5 -6.5 0 0 ] color "black")
+  block( pose [ 0 10 0 0 ] color "black")
+  block( pose [ 10 0 0 90 ] color "black")
+  block( pose [ 0 -10 0 0 ] color "black")
+  block( pose [ -10 0 0 90 ] color "black")
+  block1( pose [ 3.5 2.5 0 0 ] color "black")
+  block1( pose [ -3.5 2.5 0 0 ] color "black")
+  block1( pose [ 3.5 -2.5 0 0 ] color "black")
+  block1( pose [ -3.5 -2.5 0 0 ] color "black")
+  block1( pose [ 5.5 6.5 0 0 ] color "black")
+  block1( pose [ -5.5 6.5 0 0 ] color "black")
+  block1( pose [ 5.5 -6.5 0 0 ] color "black")
+  block1( pose [ -5.5 -6.5 0 0 ] color "black")
 
 
 
-erratic( pose [  0  0 0  0] name "era0" color "blue")
-erratic( pose [  1  0 0  0] name "era1" color "blue")
-erratic( pose [  2  0 0  0] name "era2" color "blue")
-erratic( pose [  3  0 0  0] name "era3" color "blue")
-erratic( pose [  4  0 0  0] name "era4" color "blue")
-erratic( pose [  5  0 0  0] name "era5" color "blue")
-erratic( pose [  6  0 0  0] name "era6" color "blue")
-erratic( pose [  7  0 0  0] name "era7" color "blue")
-erratic( pose [  8  0 0  0] name "era8" color "blue")
+  erratic( pose [  0 0  0 0  0] name "era0" color "blue")
+erratic( pose [  1 0  0 0  0] name "era1" color "blue")
+erratic( pose [  2 0  0 0  0] name "era2" color "blue")
+erratic( pose [  3 0  0 0  0] name "era3" color "blue")

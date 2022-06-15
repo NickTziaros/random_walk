@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /Map1
+        - /Map2
         - /Map4
       Splitter Ratio: 0.36039602756500244
     Tree Height: 663
