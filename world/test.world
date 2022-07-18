@@ -108,7 +108,9 @@ window
 
 
 
-  erratic( pose [  0 0  0 0  0] name "era0" color "blue")
-erratic( pose [  1 0  0 0  0] name "era1" color "blue")
-erratic( pose [  2 0  0 0  0] name "era2" color "blue")
-erratic( pose [  3 0  0 0  0] name "era3" color "blue")
+  erratic( pose [  -2 0  0 0  0] name "era0" color "blue")
+erratic( pose [  -1 0  0 0  0] name "era1" color "blue")
+erratic( pose [  0 0  0 0  0] name "era2" color "blue")
+erratic( pose [  1 0  0 0  0] name "era3" color "blue")
+erratic( pose [  -2 -0.5  0 0  0] name "era4" color "blue")
+erratic( pose [  -1 -0.5  0 0  0] name "era5" color "blue")

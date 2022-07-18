@@ -1,9 +1,13 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # license removed for brevity
 import rospy
 from std_msgs.msg import String,Float64
 from nav_msgs.msg import OccupancyGrid
 import numpy as np
+import image_similarity_measures
+from image_similarity_measures.quality_metrics import rmse, psnr ,ssim,fsim
+import cv2
+
 
 def callback(msg):
     global merged_map
@@ -31,15 +35,14 @@ def convert2_2D(arr_1d,height,width):
 
     
 def compare():
-    # creates the 2d lists that will contain the 2d maps and fills the with the value 100.
+
     ground_truth_fill=np.full((500,500), 100)
     merged_map_fill=np.full((500,500), 100)
-    
+    grid = OccupancyGrid()
     # initializes the counter for the percentage formula.
     counter=0.0
     counter2=0.0
-    OCRcounter=0.0
-    OCRcounter2=0.0
+    
     # converts the ground_truth and merged_map maps into 2d lists.
     ground_truth_map_2d=convert2_2D(ground_truth_map,ground_truth_height,ground_truth_width)
     merged_map_2d=convert2_2D(merged_map,merged_map_height,merged_map_width)
@@ -49,64 +52,61 @@ def compare():
     # merged_map_cropped= merged_map_2d[40:440,40:445]
 
     # fills the two 500x500 lists with the croped maps.
-    for i in range(480):
-        for j in range(485):
-            ground_truth_fill[i,j]=ground_truth_map_2d[i,j]
+    # ground_truth_fill=np.zeros((ground_truth_height, ground_truth_width))
+    ground_truth_fill=ground_truth_fill.astype(Float64)
+    for i in range(ground_truth_height):
+        for j in range(ground_truth_width):
+            if (ground_truth_map_2d[i,j] == -1) :
+                ground_truth_fill[i,j]=0.5
+            elif (ground_truth_map_2d[i,j] == 100):
+                ground_truth_fill[i,j]=1
+            else:
+                ground_truth_fill[i,j]=ground_truth_map_2d[i,j]
+            # print(ground_truth_fill[i,j])   
+
+
+    # merged_map_fill=np.zeros((merged_map_height, merged_map_width))
+    merged_map_fill=merged_map_fill.astype(Float64)
     for i in range(merged_map_height):
         for j in range(merged_map_width):
             merged_map_fill[i,j]=merged_map_2d[i,j]
+            if (merged_map_2d[i,j] == -1) :
+                merged_map_fill[i,j] = 0.5
+            elif (merged_map_2d[i,j]== 100):
+                merged_map_fill[i,j]=1
+            else:
+                merged_map_fill[i,j]=merged_map_2d[i,j]             
 
     # crops the two lists filled with the maps
-    ground_truth_cropped=ground_truth_fill[40:440,40:445] 
+    ground_truth_cropped=ground_truth_fill[40:440,40:445]
+
     merged_map_cropped=merged_map_fill[40:440,40:445]
 
-    #Reverts the 2d lists into 1d so they can be published for debuging. 
-    merged_map_cropped_flat=merged_map_cropped.flatten() 
-    ground_truth_cropped_flat=ground_truth_cropped.flatten()     
-    # Filles the Occupancy grid map msg 
-    # grid.data=ground_truth_cropped_flat
-    # grid.info.height=ground_truth_cropped.shape[0]
-    # grid.info.width=ground_truth_cropped.shape[1]
-    # grid.info.origin.position.x=ground_truth_mapix
-    # grid.info.origin.position.y=ground_truth_mapiy
-    # grid.info.resolution=0.05
-
-# Calculates the percentage of the known cells in the map   
-    for i in range(len(ground_truth_cropped_flat)):
-        
-            if merged_map_cropped_flat[i]>-1  :
+    print(merged_map_cropped.shape[0]*merged_map_cropped.shape[1])
+    counter=0.0
+    counter2=0.0
+    for i in range(merged_map_cropped.shape[0]):
+        for j in range(merged_map_cropped.shape[1]):
+            if (merged_map_cropped[i,j]==1) and (ground_truth_cropped[i,j]==1):
                 counter=counter+1
-    percent= (counter/(400*405))*100
-
-# Calculates the percentage of identical cells in merged_map and ground_truth map   
-    for i in range(len(ground_truth_cropped_flat)):
-        
-            if merged_map_cropped_flat[i]==ground_truth_cropped_flat[i]  :
+            if (ground_truth_cropped[i,j]==1):
                 counter2=counter2+1
-    percent2= (counter2/(400*405))*100
 
-    # print(percent)
-    # print(counter2)
-    pub.publish(percent)
-
-    for i in range(len(ground_truth_cropped_flat)):
-        
-            if merged_map_cropped_flat[i]==100 and ground_truth_cropped_flat[i]==100  :
-                OCRcounter=OCRcounter+1
-            if ground_truth_cropped_flat[i]==100  :
-                OCRcounter2=OCRcounter2+1
-
-
-
-    OCRpercent= (OCRcounter/OCRcounter2)*100
-
-    pub1.publish(OCRpercent)
+    score=counter/counter2
+    print(score)  
 
 
 
 
 
 
+
+    # print(merged_map_cropped.tolist())
+    # print(type(merged_map_cropped))
+    # print(ground_truth_cropped.shape)
+    # cv2.imshow("window_name2", ground_truth_cropped)
+    # cv2.waitKey(0) 
+    # cv2.destroyAllWindows() 
 
 
 
@@ -115,14 +115,12 @@ def compare():
 def main():
 
 
-    rospy.init_node('compare_maps', anonymous=True)
+    rospy.init_node('compare_maps1', anonymous=True)
     rospy.Subscriber("/merged_map", OccupancyGrid , callback)
     rospy.Subscriber("/ground_truth", OccupancyGrid , ground_truth_callback)
     # rospy.Subscriber("/my_namespace/map", OccupancyGrid , callback)
     global pub 
-    global pub1
-    pub = rospy.Publisher("/coverage_percentage",Float64, queue_size=10)
-    pub1 = rospy.Publisher("/OCR",Float64, queue_size=10)
+    pub = rospy.Publisher("/map2",OccupancyGrid, queue_size=10)
     rate = rospy.Rate(10)
     #rate.sleep()
     while not rospy.is_shutdown():

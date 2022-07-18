@@ -7,16 +7,25 @@ import  time
 
 f = open(os.path.split(os.path.dirname(__file__))[0] + '/launch/test_slam.launch', "w")
 robots=rospy.get_param("/swarm/robots")
-print(robots)
+map=rospy.get_param("/swarm/map")
 
-if (robots == None):
-     ROS_ERROR("Error in getting the robots param\n");
 
 f.write('<launch>\n<arg name="ns" default="robot_1"/>\n')
 
 for i in range(robots):
 	f.write('<remap from="/robot_' + str(i)+'/scan" to ="/robot_' + str(i)+'/base_scan_1" />\n')
 
+
+if (map=="corridor"):
+	xmax=12
+	xmin=-12
+	ymax=20
+	ymin=-20
+elif (map=="box"):
+	xmax=12
+	xmin=-12
+	ymax=12
+	ymin=-12
 for i in range(robots):
 	f.write('''
 	<node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen" ns="robot_'''+ str(i)+'''">
@@ -44,10 +53,10 @@ for i in range(robots):
     	<param name="str" value="0.0"/>
     	<param name="stt" value="0.0"/>
     	<param name="resampleThreshold" value="0.5"/>
-    	<param name="xmin" value="-12.0"/>
-    	<param name="ymin" value="-12.0"/>
-    	<param name="xmax" value="12.0"/>
-    	<param name="ymax" value="12.0"/>
+    	<param name="xmin" value="'''+ str(xmin)+'''"/>
+    	<param name="ymin" value="'''+ str(ymin)+'''"/>
+    	<param name="xmax" value="'''+ str(xmax)+'''"/>
+    	<param name="ymax" value="'''+ str(ymax)+'''"/>
     	<param name="llsamplerange" value="0.01"/>
     	<param name="llsamplestep" value="0.01"/>
     	<param name="lasamplerange" value="0.005"/>

@@ -1,4 +1,5 @@
 swarm:
-   formation: 'no' #no, box
-   robots: 4 #used to "no" formation
+   formation: 'box' #no, box
+   robots: 6 #used to "no" formation
    map: 'box' #box,corridor
+   #VonMises:

@@ -52,7 +52,7 @@ def compare(ground_truth):
     merged_map_cropped_flat=merged_map_cropped.flatten() 
     ground_truth_cropped_flat=ground_truth_cropped.flatten()   
  
-    grid.data=merged_map_cropped_flat   
+    grid.data=ground_truth_cropped_flat   
     grid.info.width=405
     # ground_truth_cropped.shape[0]
     grid.info.height=400
@@ -67,13 +67,13 @@ def compare(ground_truth):
 def main():
 
 
-    rospy.init_node('compare_maps', anonymous=True)
+    rospy.init_node('compare_maps2', anonymous=True)
     rospy.Subscriber("/merged_map", OccupancyGrid , callback)
     # rospy.Subscriber("/my_namespace/map", OccupancyGrid , callback)
     rospy.Subscriber("/ground_truth", OccupancyGrid , ground_truth_callback)
     # rospy.Subscriber("/my_namespace/map", OccupancyGrid , callback)
     global pub 
-    pub = rospy.Publisher("/newmap2",OccupancyGrid, queue_size=10)
+    pub = rospy.Publisher("/map1",OccupancyGrid, queue_size=10)
     rate = rospy.Rate(10)
     #rate.sleep()
     while not rospy.is_shutdown():

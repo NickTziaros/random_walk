@@ -4,14 +4,16 @@ import  os
 import roslaunch
 import  time 
 
-
+rospy.init_node('Add Maps', anonymous=True)
 f = open(os.path.split(os.path.dirname(__file__))[0] + '/launch/test_mapmerge.launch', "w")
 robots=rospy.get_param("/swarm/robots")
 formation=rospy.get_param("/swarm/formation")
 print(robots)
 
-if (robots == None):
-     ROS_ERROR("Error in getting the robots param\n");
+if (robots < 2):
+     rospy.logerr("multirobot_map_merge needs more than two robots to \n");
+if (formation != "box" and formation !="no"):
+     rospy.logerr("Invalid formation parameter value\n");
 
 f.write("<launch>\n")
 for i in range(robots):
