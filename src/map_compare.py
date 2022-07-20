@@ -39,6 +39,8 @@ def compare():
     counter=0.0
     counter2=0.0
     OCRcounter=0.0
+    OCFcounter=0.0
+    OCFcounter2=0.0
     OCRcounter2=0.0
     # converts the ground_truth and merged_map maps into 2d lists.
     ground_truth_map_2d=convert2_2D(ground_truth_map,ground_truth_height,ground_truth_width)
@@ -96,11 +98,18 @@ def compare():
             if ground_truth_cropped_flat[i]==100  :
                 OCRcounter2=OCRcounter2+1
 
+    for i in range(len(ground_truth_cropped_flat)):
+        
+            if merged_map_cropped_flat[i]==100 and ground_truth_cropped_flat[i]==100  :
+                OCFcounter=OCFcounter+1
+            if ground_truth_cropped_flat[i]==100  :
+                OCFcounter2=OCFcounter2+1
 
-
-    OCRpercent= (OCRcounter/OCRcounter2)*100
-
+    OCRpercent= (OCRcounter/OCRcounter2)
+    OCFpercent= (OCFcounter/OCFcounter2)
     pub1.publish(OCRpercent)
+    pub2.publish(OCFpercent)
+
 
 
 
@@ -123,6 +132,7 @@ def main():
     global pub1
     pub = rospy.Publisher("/coverage_percentage",Float64, queue_size=10)
     pub1 = rospy.Publisher("/OCR",Float64, queue_size=10)
+    pub2 = rospy.Publisher("/OCF",Float64, queue_size=10)
     rate = rospy.Rate(10)
     #rate.sleep()
     while not rospy.is_shutdown():

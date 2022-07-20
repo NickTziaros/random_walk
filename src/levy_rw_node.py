@@ -21,6 +21,8 @@ def kill_node_manual():
     
 
 def main():
+    VonMisesKappa=rospy.get_param("/swarm/VonMisesKappa")
+    VonMisesMu=rospy.get_param("/swarm/VonMisesMu")
     flag=0
     flag1=0
     t0= datetime.now()
@@ -31,26 +33,26 @@ def main():
         # rospy.loginfo("{}'s step= {}".format(robotname,step))
         odom=r.get_odom()
         distance=0
-        new_heading=np.random.vonmises(0,0)
+        new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)
         r.fix_yaw(new_heading)    
         while step-distance>0 and not rospy.is_shutdown():
             rate.sleep()
-            # coverage_percentage=r.get_coverage_percentage()
-            # if coverage_percentage>90:
-            #     t1 = datetime.now() - t0
-            #     # print("time to reach " + str(coverage_percentage) + "coverage is: "+ str(t1))
-            #     # kill_node_manual()
-            # if coverage_percentage>50 and flag==0:
-            #     t2 = datetime.now() - t0
-            #     flag=1
-            #     print("time to reach " + str(50) + "%" + "coverage is: "+ str(t2))
-            # if coverage_percentage>25 and flag1==0:
-            #     t3 = datetime.now() - t0
-            #     flag1=1
-            #     print("time to reach " + str(25) + "%" + "coverage is: "+ str(t3))
-            if l.get_front_min_range()<2:
+            coverage_percentage=r.get_coverage_percentage()
+            if coverage_percentage>90:
+                t1 = datetime.now() - t0
+                print("time to reach " + str(90) + "%" + "coverage is: "+ str(t1))
+                kill_node_manual()
+            if coverage_percentage>50 and flag==0:
+                t2 = datetime.now() - t0
+                flag=1
+                print("time to reach " + str(50) + "%" + "coverage is: "+ str(t2))
+            if coverage_percentage>25 and flag1==0:
+                t3 = datetime.now() - t0
+                flag1=1
+                print("time to reach " + str(25) + "%" + "coverage is: "+ str(t3))
+            if l.get_front_min_range()<1:
                 r.publish_vel(0,0)
-                new_heading=np.random.vonmises(0,0)  
+                new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)
                 r.fix_yaw(new_heading)
                 step=levy.rvs(loc=6,scale=0.2)
                 # rospy.loginfo("{}'s step= {}".format(robotname,step))

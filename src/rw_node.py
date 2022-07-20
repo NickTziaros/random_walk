@@ -21,6 +21,8 @@ def kill_node_manual():
 
 
 def main():
+    VonMisesKappa=rospy.get_param("/swarm/VonMisesKappa")
+    VonMisesMu=rospy.get_param("/swarm/VonMisesMu")
     flag=0
     flag1=0
     # rospy.Timer(rospy.Duration(600), kill_node)
@@ -31,7 +33,7 @@ def main():
         step=6
         odom=r.get_odom()
         distance=0
-        new_heading=np.random.vonmises(0,0)
+        new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)
         r.fix_yaw(new_heading)    
         while step-distance>0.05 and not rospy.is_shutdown():
             rate.sleep()
@@ -49,8 +51,8 @@ def main():
                 flag1=1
                 print("time to reach " + str(25) + "%" + "coverage is: "+ str(t3))
             # rospy.loginfo(l.get_front_min_range())
-            if l.get_front_min_range()<2:
-                new_heading=np.random.vonmises(0,0)  
+            if l.get_front_min_range()<1:
+                new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)  
                 r.fix_yaw(new_heading)
                 odom=r.get_odom()
                 distance=r.euclidean_distance(odom)
@@ -68,6 +70,7 @@ if __name__ == '__main__':
         rospy.init_node('Random_Walk', anonymous=True)
         l=laser(robotname)
         r=robot(robotname)
+
         rate = rospy.Rate(5)
         rate.sleep()
         main()
