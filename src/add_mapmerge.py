@@ -69,5 +69,4 @@ for i in range(robots):
 	f.write('  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg '+ str(i)+'_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg '+ str(i)+'_robot)/map 200"/>\n')
 
 
-#f.write('<node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node>')
 f.write("</launch>")

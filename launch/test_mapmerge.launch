@@ -5,6 +5,10 @@
 <arg name="3_robot"  default="robot_3"/>
 <arg name="4_robot"  default="robot_4"/>
 <arg name="5_robot"  default="robot_5"/>
+<arg name="6_robot"  default="robot_6"/>
+<arg name="7_robot"  default="robot_7"/>
+<arg name="8_robot"  default="robot_8"/>
+<arg name="9_robot"  default="robot_9"/>
 
           <group ns="/robot_0/map_merge">
           <param name="init_pose_x" value="-2"/>
@@ -42,6 +46,30 @@
           <param name="init_pose_z" value=" 0.0"/>
           <param name="init_pose_yaw"   value="0"/>
           </group>
+          <group ns="/robot_6/map_merge">
+          <param name="init_pose_x" value="0"/>
+          <param name="init_pose_y" value="-0.5"/>
+          <param name="init_pose_z" value=" 0.0"/>
+          <param name="init_pose_yaw"   value="0"/>
+          </group>
+          <group ns="/robot_7/map_merge">
+          <param name="init_pose_x" value="1"/>
+          <param name="init_pose_y" value="-0.5"/>
+          <param name="init_pose_z" value=" 0.0"/>
+          <param name="init_pose_yaw"   value="0"/>
+          </group>
+          <group ns="/robot_8/map_merge">
+          <param name="init_pose_x" value="-2"/>
+          <param name="init_pose_y" value="-1.0"/>
+          <param name="init_pose_z" value=" 0.0"/>
+          <param name="init_pose_yaw"   value="0"/>
+          </group>
+          <group ns="/robot_9/map_merge">
+          <param name="init_pose_x" value="-1"/>
+          <param name="init_pose_y" value="-1.0"/>
+          <param name="init_pose_z" value=" 0.0"/>
+          <param name="init_pose_yaw"   value="0"/>
+          </group>
 	<node pkg="multirobot_map_merge" type="map_merge" respawn="false" name="map_merge" output="screen">
       <param name="robot_map_topic" value="map"/>
       <param name="robot_namespace" value=""/>
@@ -59,4 +87,8 @@
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 3_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 3_robot)/map 200"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 4_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 4_robot)/map 200"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 5_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 5_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 6_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 6_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 7_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 7_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 8_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 8_robot)/map 200"/>
+  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 9_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 9_robot)/map 200"/>
 </launch>

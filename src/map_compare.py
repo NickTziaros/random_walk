@@ -123,13 +123,18 @@ def compare():
 
 def main():
 
+    while not any('/merged_map' in subl for subl in rospy.get_published_topics()) :
+        print("merged_map error")
+        rospy.sleep(1)
 
     rospy.init_node('compare_maps', anonymous=True)
     rospy.Subscriber("/merged_map", OccupancyGrid , callback)
     rospy.Subscriber("/ground_truth", OccupancyGrid , ground_truth_callback)
     # rospy.Subscriber("/my_namespace/map", OccupancyGrid , callback)
+ 
     global pub 
     global pub1
+    global pub2
     pub = rospy.Publisher("/coverage_percentage",Float64, queue_size=10)
     pub1 = rospy.Publisher("/OCR",Float64, queue_size=10)
     pub2 = rospy.Publisher("/OCF",Float64, queue_size=10)

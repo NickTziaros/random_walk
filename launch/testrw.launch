@@ -1,4 +1,5 @@
 <launch>
+<node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node>
 <arg name="robot_name" default="robot"/><group ns="$(arg robot_name)_0">
 
 	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_0 "></node> 
@@ -35,5 +36,29 @@
 
 
 	</group>
-<node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node>
+<group ns="$(arg robot_name)_6">
+
+	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_6 "></node> 
+
+
+	</group>
+<group ns="$(arg robot_name)_7">
+
+	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_7 "></node> 
+
+
+	</group>
+<group ns="$(arg robot_name)_8">
+
+	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_8 "></node> 
+
+
+	</group>
+<group ns="$(arg robot_name)_9">
+
+	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_9 "></node> 
+
+
+	</group>
+
 </launch>

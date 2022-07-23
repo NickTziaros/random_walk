@@ -2,6 +2,7 @@
 import  rospy
 import  sys
 import  numpy as np
+from    std_msgs.msg import String,Float64
 from    geometry_msgs.msg import Twist,Point,Pose
 from    nav_msgs.msg import Odometry
 from    robot_class import robot
@@ -18,7 +19,9 @@ def kill_node(event):
 def kill_node_manual():
     os.system("rosnode kill "+ "rw_node")
     
-
+def coverage_callback(msg):
+    global coverage_percentage    
+    coverage_percentage=msg.data
 
 def main():
     VonMisesKappa=rospy.get_param("/swarm/VonMisesKappa")
@@ -27,7 +30,7 @@ def main():
     flag1=0
     # rospy.Timer(rospy.Duration(600), kill_node)
     t0= datetime.now()
-    coverage_percentage=r.get_coverage_percentage()
+    
     while not rospy.is_shutdown()  :
       
         step=6
@@ -37,7 +40,7 @@ def main():
         r.fix_yaw(new_heading)    
         while step-distance>0.05 and not rospy.is_shutdown():
             rate.sleep()
-            coverage_percentage=r.get_coverage_percentage()
+
             if coverage_percentage>90:
                 t1 = datetime.now() - t0
                 print("time to reach " + str(90) + "%" + "coverage is: "+ str(t1))
@@ -64,10 +67,15 @@ def main():
 
 if __name__ == '__main__':
     try:
-
+        while not  any('/coverage_percentage' in subl for subl in rospy.get_published_topics()) :
+            print("The coverage_percentage topic is not published. Retrying.........")
+            rospy.sleep(1)
         args=rospy.myargv(argv=sys.argv)
         robotname= args[1]
         rospy.init_node('Random_Walk', anonymous=True)
+        # print(rospy.get_published_topics())
+        subs = rospy.Subscriber("/coverage_percentage",Float64,coverage_callback)
+   
         l=laser(robotname)
         r=robot(robotname)
 
