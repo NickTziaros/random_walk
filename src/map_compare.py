@@ -39,8 +39,8 @@ def compare():
     counter=0.0
     counter2=0.0
     OCRcounter=0.0
-    OCFcounter=0.0
-    OCFcounter2=0.0
+    FCRcounter=0.0
+    FCRcounter2=0.0
     OCRcounter2=0.0
     # converts the ground_truth and merged_map maps into 2d lists.
     ground_truth_map_2d=convert2_2D(ground_truth_map,ground_truth_height,ground_truth_width)
@@ -100,15 +100,15 @@ def compare():
 
     for i in range(len(ground_truth_cropped_flat)):
         
-            if merged_map_cropped_flat[i]==100 and ground_truth_cropped_flat[i]==100  :
-                OCFcounter=OCFcounter+1
-            if ground_truth_cropped_flat[i]==100  :
-                OCFcounter2=OCFcounter2+1
+            if merged_map_cropped_flat[i]==0 and ground_truth_cropped_flat[i]==0  :
+                FCRcounter=FCRcounter+1
+            if ground_truth_cropped_flat[i]==0  :
+                FCRcounter2=FCRcounter2+1
 
     OCRpercent= (OCRcounter/OCRcounter2)
-    OCFpercent= (OCFcounter/OCFcounter2)
+    FCRpercent= (FCRcounter/FCRcounter2)
     pub1.publish(OCRpercent)
-    pub2.publish(OCFpercent)
+    pub2.publish(FCRpercent)
 
 
 

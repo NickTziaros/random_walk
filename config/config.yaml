@@ -1,6 +1,6 @@
 swarm:
    formation: 'box' #no, box
-   robots: 10 #used to "no" formation
+   robots: 6 #used to "no" formation
    map: 'box' #box,corridor
    VonMisesKappa: 0
    VonMisesMu: 0
