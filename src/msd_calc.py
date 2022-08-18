@@ -36,47 +36,52 @@ def main():
 	global dist
 	global prev
 	global msd
-	global Y
+	global X
 	# global robot_1_path
 	global dist1
 	global prev1
 	global msd1
-	global Y1
+	global X1
+	dist=0
+	dist1=0
 	prev=np.array([-2,0])
 	prev1=np.array([-1,0])
 	# print(robot_0_path.poses[i].pose.position.x-prev[0])
 	for i in range(np.shape(robot_0_path.poses)[0]):
-		xd=prev[0]
-		xd2=prev[1]
-
-		# if (robot_0_path.poses[i].pose.position.x-xd>0.000) or (robot_0_path.poses[i].pose.position.y-xd2>0.000):
-		# 	dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
-		dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
 
 
-		msd=np.append(msd,dist)
-		prev=[robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y]
-		Y=np.append(Y,robot_0_path.poses[i].header.seq)
-	X=msd
+		if (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])>0.1):
+		 	dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
+		# dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
+
+
+			msd=np.append(msd,dist)
+
+			prev=[robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y]
+			X=np.append(X,robot_0_path.poses[i].header.seq)
+	Y=msd
+
+	
 
 	for i in range(np.shape(robot_1_path.poses)[0]):
-		xd=prev1[0]
-		xd2=prev1[1]
-
-		# if (robot_0_path.poses[i].pose.position.x-xd>0.000) or (robot_0_path.poses[i].pose.position.y-xd2>0.000):
-		# 	dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
-		dist1=dist1+distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])
 
 
-		msd1=np.append(msd1,dist1)
-		prev1=[robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y]
-		Y1=np.append(Y1,robot_1_path.poses[i].header.seq)
-	X1=msd1
+		if (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])>0.1):
+			dist1=dist1+distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])
+		# dist1=dist1+distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])
+
+
+			msd1=np.append(msd1,dist1)
+			prev1=[robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y]
+			X1=np.append(X1,robot_1_path.poses[i].header.seq)
+	Y1=msd1
+	# mean=(msg+msd1)/2
 	
 	fig,ax=plt.subplots()
 	ax.plot(X,Y)
 	ax.plot(X1,Y1)
 	fig.show()
+
 	# np.append(particle1_msd,robot_0_pose)
 	rospy.spin()
 
@@ -94,21 +99,20 @@ if __name__ == '__main__':
 		global prev1
 		global msd1
 		global Y1
-		dist=0
-		dist1=0
+
 		prev=np.array([-2,0])
 		prev1=[-1,0]
 		msd=[0]
 		msd1=[0]
-		Y=[0]
-		Y1=[0]
+		X=[0]
+		X1=[0]
 		init_poses=np.array([[-2,0],[-1,0],[0,0],[0,1],[0,-2],[-2,-0.5],[-1,-0.5]])
 		rospy.init_node('msd_calc', anonymous=True)
-		rate = rospy.Rate(1)
+		# rate = rospy.Rate(1)
 
 		# timer = rospy.Timer(rospy.Duration(10), timer_callback)
 		# sub_robot_12 = message_filters.Subscriber('ground_truth',OccupancyGrid)
-		sub_robot_0_path = rospy.wait_for_message('robot_0/path',Path)
+		# sub_robot_0_path = rospy.wait_for_message('robot_0/path',Path)
 		# sub_robot_0_path = message_filters.Subscriber('robot_0/path',Path)
 		# sub_robot_1_path = message_filters.Subscriber('robot_1/path',Path)
 		# sub_robot_2_path = message_filters.Subscriber('robot_2/path',Path)

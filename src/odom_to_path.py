@@ -11,6 +11,7 @@ path = Path()
 def odom_cb(data):
     global path
     path.header = data.header
+    path.header.stamp=rospy.Time.now()
     pose = PoseStamped()
     pose.header = data.header
     pose.pose = data.pose.pose

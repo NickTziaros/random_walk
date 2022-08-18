@@ -18,7 +18,7 @@ class robot():
 		# self.subs = rospy.Subscriber("/coverage_percentage",Float64,self.coverage_callback)
 		self.pub = rospy.Publisher("/{}/cmd_vel".format(robotname),Twist, queue_size=10)
 		self.vel=Twist()
-		self.rate = rospy.Rate(8)
+		self.rate = rospy.Rate(10)
 		self.rate.sleep()
         
 	# def coverage_callback(self,msg):	

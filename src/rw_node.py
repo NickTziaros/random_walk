@@ -79,7 +79,7 @@ if __name__ == '__main__':
         l=laser(robotname)
         r=robot(robotname)
 
-        rate = rospy.Rate(5)
+        rate = rospy.Rate(8)
         rate.sleep()
         main()
     except rospy.ROSInterruptException:
