@@ -15,6 +15,7 @@ import  os
 import 	message_filters
 from scipy.spatial import distance
 import matplotlib.pyplot as plt
+from tf.transformations import euler_from_quaternion
 
 # def callback(sub_robot_0_path,sub_robot_1_path):
 
@@ -30,56 +31,94 @@ import matplotlib.pyplot as plt
 def main():
 	robot_0_path = rospy.wait_for_message('robot_0/path',Path)
 	robot_1_path = rospy.wait_for_message('robot_1/path',Path)
-	# print(robot_0_path.poses)
-	# global robot_0_path
+
 
 	global dist
 	global prev
 	global msd
 	global X
-	# global robot_1_path
 	global dist1
 	global prev1
 	global msd1
 	global X1
 	dist=0
 	dist1=0
+	msd=[0]
+	msd1=[0]
+	mean1=[0]
+	X=[0]
+	X1=[0]
+	Z=[0]
+	prevw=0
 	prev=np.array([-2,0])
 	prev1=np.array([-1,0])
-	# print(robot_0_path.poses[i].pose.position.x-prev[0])
+	count=0
 	for i in range(np.shape(robot_0_path.poses)[0]):
+	
+	# distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])>0.1
+
+		if (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[[robot_0_path.poses[i-1].pose.position.x,robot_0_path.poses[i-1].pose.position.y]])==0):
+		 	if (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])>0.1 ):
+
+			 	dist=dist+math.pow(distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev]),2)
+			# dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
 
 
-		if (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])>0.1):
-		 	dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
-		# dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
+				msd=np.append(msd,dist)
 
-
-			msd=np.append(msd,dist)
-
-			prev=[robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y]
-			X=np.append(X,robot_0_path.poses[i].header.seq)
+				prev=[robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y]
+				X=np.append(X,robot_0_path.poses[i].header.stamp.secs)
 	Y=msd
 
-	
 
 	for i in range(np.shape(robot_1_path.poses)[0]):
+		
+		if (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[[robot_1_path.poses[i-1].pose.position.x,robot_1_path.poses[i-1].pose.position.y]])==0 ):
+			if (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])>0.1 ):
+				dist1=dist1+math.pow(distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1]),2)
+				
+		# dist1=dist1+distance.euclidean([robot_1_path.poses[i].position.x,robot_1_path.poses[i].pose.position.y],[prev1])
 
 
-		if (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])>0.1):
-			dist1=dist1+distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])
-		# dist1=dist1+distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])
-
-
-			msd1=np.append(msd1,dist1)
-			prev1=[robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y]
-			X1=np.append(X1,robot_1_path.poses[i].header.seq)
+				msd1=np.append(msd1,dist1)
+				prev1=[robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y]
+			# prevw=yaw
+				
+				X1=np.append(X1,robot_1_path.poses[i].header.stamp.secs)
 	Y1=msd1
-	# mean=(msg+msd1)/2
-	
+
+	# for i in range(10000):
+
+	# 	if (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])>0.1):
+	# 		dist1=dist1+math.pow(distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1]),2)
+	# 		prev=[robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y]
+	# 	if (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])>0.1):
+	# 		dist=dist+math.pow(distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev]),2)
+
+		
+	# 		# dist1=dist1+distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])
+
+
+			
+	# 		prev1=[robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y]
+
+		
+	# 	Z=np.append(Z,robot_1_path.poses[i].header.stamp.secs)
+	# 	mean=(dist1+dist)/2
+	# 	mean1=np.append(mean1,mean)
+		
+	# Y1=mean1
+
+
+
+	# mean=(Y1+Y)/2
+	# print(np.shape(X1))
+	# print(np.shape(X))
+
 	fig,ax=plt.subplots()
 	ax.plot(X,Y)
 	ax.plot(X1,Y1)
+	# ax.plot(Z,Y1)
 	fig.show()
 
 	# np.append(particle1_msd,robot_0_pose)
@@ -100,12 +139,7 @@ if __name__ == '__main__':
 		global msd1
 		global Y1
 
-		prev=np.array([-2,0])
-		prev1=[-1,0]
-		msd=[0]
-		msd1=[0]
-		X=[0]
-		X1=[0]
+
 		init_poses=np.array([[-2,0],[-1,0],[0,0],[0,1],[0,-2],[-2,-0.5],[-1,-0.5]])
 		rospy.init_node('msd_calc', anonymous=True)
 		# rate = rospy.Rate(1)
