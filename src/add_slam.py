@@ -79,3 +79,18 @@ for i in range(robots):
 f.write('<node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node>\n')
 
 f.write("</launch>")
+f.close()
+
+f = open(os.path.split(os.path.dirname(__file__))[0] + '/launch/odom_to_path.launch', "w")
+f.write("<launch>\n")
+f.write('<arg name="robot_name" default="robot"/>\n')
+
+for i in range(robots):
+	
+	f.write('''<group ns="$(arg robot_name)_'''+str(i)+'''">\n
+	<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_'''+str(i)+''' "></node> \n
+
+	</group>\n''')
+
+f.write("</launch>")
+f.close()

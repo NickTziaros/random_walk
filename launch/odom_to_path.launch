@@ -1,49 +1,39 @@
-<?xml version="1.0"?>
 <launch>
-	  <arg name="robot_name" default="robot"/>
+<arg name="robot_name" default="robot"/>
+<group ns="$(arg robot_name)_0">
 
+	<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_0 "></node> 
 
-
-	<group ns="$(arg robot_name)_0">
-		<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_0 ">
-        </node> 
 
 	</group>
+<group ns="$(arg robot_name)_1">
 
-	<group ns="$(arg robot_name)_1">
-		<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_1 ">
-        </node> 
+	<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_1 "></node> 
+
 
 	</group>
+<group ns="$(arg robot_name)_2">
 
-	<group ns="$(arg robot_name)_2">
-		<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_2 ">
-        </node> 
+	<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_2 "></node> 
+
 
 	</group>
+<group ns="$(arg robot_name)_3">
 
-	<group ns="$(arg robot_name)_3">
-		<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_3 ">
-        </node> 
+	<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_3 "></node> 
+
 
 	</group>
+<group ns="$(arg robot_name)_4">
 
-	<group ns="$(arg robot_name)_4">
-		<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_4 ">
-        </node> 
+	<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_4 "></node> 
+
 
 	</group>
+<group ns="$(arg robot_name)_5">
 
+	<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_5 "></node> 
 
-	<group ns="$(arg robot_name)_5">
-		<node pkg="random_walk" name="odom_to_path" type="odom_to_path.py" output="screen" args="$(arg robot_name)_5 ">
-        </node> 
 
 	</group>
-
-
-
-
-
-
 </launch>
