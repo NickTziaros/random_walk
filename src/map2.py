@@ -52,7 +52,7 @@ def compare(ground_truth):
     merged_map_cropped_flat=merged_map_cropped.flatten() 
     ground_truth_cropped_flat=ground_truth_cropped.flatten()   
  
-    grid.data=ground_truth_cropped_flat   
+    grid.data=merged_map_cropped_flat   
     grid.info.width=405
     # ground_truth_cropped.shape[0]
     grid.info.height=400

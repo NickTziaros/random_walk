@@ -33,7 +33,7 @@ def main():
     
     while not rospy.is_shutdown()  :
       
-        step=6
+        step=step=np.random.normal(loc=4)
         odom=r.get_odom()
         distance=0
         new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)
@@ -41,7 +41,7 @@ def main():
         while step-distance>0.05 and not rospy.is_shutdown():
             rate.sleep()
 
-            if coverage_percentage>90:
+            if coverage_percentage>95:
                 t1 = datetime.now() - t0
                 print("time to reach " + str(90) + "%" + "coverage is: "+ str(t1))
                 kill_node_manual()
@@ -54,13 +54,13 @@ def main():
                 flag1=1
                 print("time to reach " + str(25) + "%" + "coverage is: "+ str(t3))
             # rospy.loginfo(l.get_front_min_range())
-            if l.get_front_min_range()<1:
+            if l.get_front_min_range()<2:
                 new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)  
                 r.fix_yaw(new_heading)
                 odom=r.get_odom()
                 distance=r.euclidean_distance(odom)
             else:
-                r.publish_vel(0.2,0)
+                r.publish_vel(0.5,0)
                 distance=r.euclidean_distance(odom)
     # kill_node_manual()
 
@@ -79,7 +79,7 @@ if __name__ == '__main__':
         l=laser(robotname)
         r=robot(robotname)
 
-        rate = rospy.Rate(8)
+        rate = rospy.Rate(7)
         rate.sleep()
         main()
     except rospy.ROSInterruptException:

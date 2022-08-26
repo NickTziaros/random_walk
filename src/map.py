@@ -73,7 +73,7 @@ def main():
     rospy.Subscriber("/ground_truth", OccupancyGrid , ground_truth_callback)
     # rospy.Subscriber("/my_namespace/map", OccupancyGrid , callback)
     global pub 
-    pub = rospy.Publisher("/map6",OccupancyGrid, queue_size=10)
+    pub = rospy.Publisher("/map",OccupancyGrid, queue_size=10)
     rate = rospy.Rate(10)
     #rate.sleep()
     while not rospy.is_shutdown():

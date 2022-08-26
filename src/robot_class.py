@@ -99,9 +99,9 @@ class robot():
 			self.rate.sleep()
 
 			if angle_diff < 0: 
-				speed=-0.4
+				speed=-0.6
 			else:
-				speed= 0.4
+				speed= 0.6
 			angle_diff= self.rad2deg(des_yaw) - self.get_yaw_deg()
 			# rospy.loginfo(angle_diff)
 			self.publish_vel(0,speed)

@@ -28,7 +28,7 @@ if __name__ == '__main__':
     rospy.init_node('path_node')
     args=rospy.myargv(argv=sys.argv)
     robotname= args[1]
-    rate = rospy.Rate(0.5)
+    rate = rospy.Rate(0.6)
     odom_sub = rospy.Subscriber("/{}/odom".format(robotname), Odometry, odom_cb)
     path_pub = rospy.Publisher("/{}/path".format(robotname), Path, queue_size=10)
     while not rospy.is_shutdown():
