@@ -33,7 +33,7 @@ for i in range(robots):
     '		<param name="odom_frame" value="/robot_' + str(i)+'/odom"/>\n'+
     '		<param name="map_frame"  value="/robot_' + str(i)+'/map"/>\n'+
     '''		<param name="map_update_interval" value="2.0"/>
-    	<param name="maxUrange" value="59.99"/>
+    	<param name="maxUrange" value="4"/>
     	<param name="minimumScore" value="100"/>
     	<param name="linearUpdate" value="1"/>
     	<param name="angularUpdate" value="1"/>
@@ -61,7 +61,7 @@ for i in range(robots):
     	<param name="llsamplestep" value="0.01"/>
     	<param name="lasamplerange" value="0.005"/>
     	<param name="lasamplestep" value="0.005"/>
-    	<param name="maxRange" value="4.4"/>
+    	<param name="maxRange" value="80"/>
 	</node>\n''')
 f.write("</launch>")
 

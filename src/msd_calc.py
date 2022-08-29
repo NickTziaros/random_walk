@@ -19,6 +19,7 @@ from tf.transformations import euler_from_quaternion
 import  time 
 from    datetime import datetime
 
+
 # def callback(sub_robot_0_path,sub_robot_1_path):
 
 # 	global robot_0_path
@@ -42,13 +43,25 @@ def callback(msg):
 	# global coverage_percentagetime
 	coverage_percentage.append(msg.data)
 	coverage_percentagetime.append(rospy.get_rostime().secs)	
-	if msg.data>15 :
+	if msg.data>90 :
 		
 		msd()
-		
+
+def Cumulative(lists):
+    cu_list = []
+    length = len(lists)
+    cu_list = [sum(lists[0:x:1]) for x in range(0, length+1)]
+    return cu_list[1:]
+
+
+
+
+
+
 # time25,time50,time90
 def msd():
 	# checks if the path topics are published
+	print("Calculating results.........")
 	while not  any('/robot_0/path' in subl for subl in rospy.get_published_topics()) :
 		print("No robot_x/path topic published. Retrying.........")
 	# robot_path=np.array((0,0,0,0,0,0))
@@ -66,84 +79,7 @@ def msd():
 
 	msd=[[0],[0],[0],[0],[0],[0]]
 	prev=[[-2,0],[-1,0],[0,0],[1,0],[-2,-0.5],[-1,-0.5]]	# dist=np.zeros((robots))
-	# global dist	# global prev
-	# global msd
-	# global X
-	# global dist1
-	# global prev1
-	# global msd1
-	# global X1
-	# dist=0
-	# dist1=0
-	# msd=[0]
-	# msd1=[0]
-	# mean1=[0]
-	# X=[0]
-	# X1=[0]
-	# Z=[0]
-	# prevw=0
-	# # prev=np.array([-2,0])
-	# # prev1=np.array([-1,0])
-	# count=0
-	# for i in range(np.shape(robot_0_path.poses)[0]):
-	
-	# distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])>0.1
 
-	# 	if (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[[robot_0_path.poses[i-1].pose.position.x,robot_0_path.poses[i-1].pose.position.y]])==0):
-	# 	 	if (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])>0.1 ):
-
-	# 		 	dist=dist+math.pow(distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev]),2)
-	# 		# dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
-
-
-	# 			msd=np.append(msd,dist)
-
-	# 			prev=[robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y]
-	# 			X=np.append(X,robot_0_path.poses[i].header.stamp.secs)
-	# Y=msd
-	# 	if not (distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[[robot_0_path.poses[i-1].pose.position.x,robot_0_path.poses[i-1].pose.position.y]])==0 ):
-
-
-	# 		dist=dist+math.pow(distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev]),2)
-	# 		# dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
-
-
-	# 		msd=np.append(msd,dist)
-
-	# 		prev=[robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y]
-	# 		X=np.append(X,robot_0_path.poses[i].header.stamp.secs)
-	# Y=msd
-
-	# for i in range(np.shape(robot_1_path.poses)[0]):
-		
-	# # 	if (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[[robot_1_path.poses[i-1].pose.position.x,robot_1_path.poses[i-1].pose.position.y]])==0 ):
-	# # 		if (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1])>0.1 ):
-	# # 			dist1=dist1+math.pow(distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1]),2)
-				
-	# # 	# dist1=dist1+distance.euclidean([robot_1_path.poses[i].position.x,robot_1_path.poses[i].pose.position.y],[prev1])
-
-
-	# # 			msd1=np.append(msd1,dist1)
-	# # 			prev1=[robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y]
-	# # 		# prevw=yaw
-				
-	# # 			X1=np.append(X1,robot_1_path.poses[i].header.stamp.secs)
-	# # for i in range(np.shape(robot_1_path.poses)[0]):
-		
-		
-	# 	if not (distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[[robot_1_path.poses[i-1].pose.position.x,robot_1_path.poses[i-1].pose.position.y]])==0 ):
-
-	# 		dist1=dist1+math.pow(distance.euclidean([robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y],[prev1]),2)
-				
-	# 	# dist1=dist1+distance.euclidean([robot_1_path.poses[i].position.x,robot_1_path.poses[i].pose.position.y],[prev1])
-
-
-	# 		msd1=np.append(msd1,dist1)
-	# 		prev1=[robot_1_path.poses[i].pose.position.x,robot_1_path.poses[i].pose.position.y]
-	# 		# prevw=yaw
-				
-	# 		X1=np.append(X1,robot_1_path.poses[i].header.stamp.secs)
-	# Y1=msd1
 
 
 
@@ -152,35 +88,30 @@ def msd():
 	Y=[[0],[0],[0],[0],[0],[0]]
 
 	X=[[0],[0],[0],[0],[0],[0]]
-	# print(X)
-	for j in range(robots):
-		# print(np.shape(robot_path[j].poses)[0])
+
+	poses_List=[[],[],[],[],[],[]]
+	xd1=[[],[],[],[],[],[]]
+	xd3=[[],[],[],[],[],[]]
+	xd2=[[],[],[],[],[],[]]
+	cds=[[],[],[],[],[],[]]
+	x1 = np.linspace(0,rospy.get_time(), rospy.get_time(),dtype=int)
+
+	for x in range(robots):
+		poses_List[x]=[i for i in robot_path[x].poses]
+		true=[i ]
+
+
+		xd1[x]=[i for i,j in zip(poses_List[x],poses_List[x][1:]) if i.header.stamp.secs!=j.header.stamp.secs ]
+		xd3[x]=[math.pow(distance.euclidean([j.pose.position.x,j.pose.position.y],[i.pose.position.x,i.pose.position.y]),2) for i,j in zip(xd1[x],xd1[x][1:]) if (j.pose.position.x!=i.pose.position.x and i.pose.position.y,j.pose.position.y)]
+		xd2[x]=[i.header.stamp.secs for i,j in zip(xd1[x],xd1[x][1:]) if (j.pose.position.x!=i.pose.position.x and i.pose.position.y,j.pose.position.y)]
+		cds[x]=Cumulative(xd3[x])
+
+	# 	print(len(xd3[j]),len(xd2[j]))
+	col_totals = [ sum(x)/robots for x in zip(*cds) ]
+	a=np.linspace(0,len(col_totals), len(col_totals),dtype=int)
+
+  	# sumx=[    for i in cds]
 		
-		dist=0
-		# dist[j]=np.zeros(((np.shape(robot_path[j].poses))[0]))	
-		for i in range(np.shape(robot_path[j].poses)[0]):
-			if not (distance.euclidean([robot_path[j].poses[i].pose.position.x,robot_path[j].poses[i].pose.position.y],[[robot_path[j].poses[i-1].pose.position.x,robot_path[j].poses[i-1].pose.position.y]])==0 ):
-				if not (robot_path[j].poses[i].header.stamp.secs==robot_path[j].poses[i-1].header.stamp.secs):
-
-					dist=dist+math.pow(distance.euclidean([robot_path[j].poses[i].pose.position.x,robot_path[j].poses[i].pose.position.y],prev[j]),2)
-				# dist=dist+distance.euclidean([robot_0_path.poses[i].pose.position.x,robot_0_path.poses[i].pose.position.y],[prev])
-
-
-					msd[j].append(dist)
-
-					prev[j]=[robot_path[j].poses[i].pose.position.x,robot_path[j].poses[i].pose.position.y]
-					# print(robot_path[j].poses[i].header.stamp.secs)
-					X[j].append(robot_path[j].poses[i].header.stamp.secs)
-					Y[j]=msd[j]		
-		# print(len(Y[j]))			
-
-
-
-
-
-
-
-
 
 
 
@@ -216,7 +147,7 @@ def msd():
 	ratio=np.array([[round(FCR,3),round(OCR,3)]])
 	# plt.table(cellText=Data,colLabels=('25%','50%','95%'),rowLabels=["Coverage Time"],loc='bottom',bbox=[0.0,-1,1,0.3])
 	plt.table(cellText=ratio,colLabels=('FCR','OCR'),loc='bottom',bbox=[0.0,-0.5,1,0.3])
-	print(coverage_percentagetime)
+	# print(coverage_percentagetime)
 	ax[1].plot(coverage_percentagetime,coverage_percentage)
 	ax[1].set_title("Coverage")
 	ax[0].set_xlabel("Time(s)")
@@ -224,12 +155,15 @@ def msd():
 	ax[0].set_title("MSD Mean Squared Displacement")
 	ax[0].set_xlabel("Time(s)")
 	ax[0].set_xlabel("MSD")
-	ax[0].plot(X[1],Y[1])
-	ax[0].plot(X[0],Y[0])
-	ax[0].plot(X[2],Y[2])
-	ax[0].plot(X[3],Y[3])	
-	ax[0].plot(X[4],Y[4])
-	ax[0].plot(X[5],Y[5])
+	# ax[0].plot(X[1],Y[1])
+	# ax[0].plot(X[0],Y[0])
+	# ax[0].plot(X[2],Y[2])
+	# ax[0].plot(X[3],Y[3])	
+	# ax[0].plot(X[4],Y[4])
+	# ax[0].plot(X[5],Y[5])
+	ax[0].plot(a,col_totals,'--','r')
+	for x in range(robots):
+		ax[0].plot(xd2[x],cds[x])
 	plt.tight_layout()
 	# ax.plot(xd,Y[0])
 	plt.subplots_adjust(bottom=0.2)
@@ -274,6 +208,7 @@ t0= datetime.now()
 sub = rospy.Subscriber("/coverage_percentage",Float64,callback)
 subFCR = rospy.Subscriber("/FCR",Float64,callbackFCR)
 subOCR = rospy.Subscriber("/OCR",Float64,callbackOCR)
+
 rospy.spin()		# main()
 		
 

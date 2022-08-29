@@ -138,7 +138,7 @@ def main():
     pub = rospy.Publisher("/coverage_percentage",Float64, queue_size=10)
     pub1 = rospy.Publisher("/OCR",Float64, queue_size=10)
     pub2 = rospy.Publisher("/FCR",Float64, queue_size=10)
-    rate = rospy.Rate(0.5)
+    rate = rospy.Rate(10)
     #rate.sleep()
     while not rospy.is_shutdown():
         rate.sleep()
