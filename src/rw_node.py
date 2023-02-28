@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import  rospy
 import  sys
 import  numpy as np
@@ -33,34 +33,34 @@ def main():
     
     while not rospy.is_shutdown()  :
       
-        step=step=np.random.normal(loc=4)
+        step=step=np.random.normal(loc=1)
         odom=r.get_odom()
         distance=0
         new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)
         r.fix_yaw(new_heading)    
         while step-distance>0.05 and not rospy.is_shutdown():
             rate.sleep()
-
-            if coverage_percentage>95:
-                t1 = datetime.now() - t0
-                print("time to reach " + str(90) + "%" + "coverage is: "+ str(t1))
-                kill_node_manual()
-            if coverage_percentage>50 and flag==0:
-                t2 = datetime.now() - t0
-                flag=1
-                print("time to reach " + str(50) + "%" + "coverage is: "+ str(t2))
-            if coverage_percentage>25 and flag1==0:
-                t3 = datetime.now() - t0
-                flag1=1
-                print("time to reach " + str(25) + "%" + "coverage is: "+ str(t3))
+            if map!="empty":
+                if coverage_percentage>95:
+                    # t1 = datetime.now() - t0
+                    # print("time to reach " + str(90) + "%" + "coverage is: "+ str(t1))
+                    kill_node_manual()
+            # if coverage_percentage>50 and flag==0:
+            #     t2 = datetime.now() - t0
+            #     flag=1
+            #     print("time to reach " + str(50) + "%" + "coverage is: "+ str(t2))
+            # if coverage_percentage>25 and flag1==0:
+            #     t3 = datetime.now() - t0
+            #     flag1=1
+                # print("time to reach " + str(25) + "%" + "coverage is: "+ str(t3))
             # rospy.loginfo(l.get_front_min_range())
-            if l.get_front_min_range()<2:
+            if l.get_front_min_range()<1.5:
                 new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)  
                 r.fix_yaw(new_heading)
                 odom=r.get_odom()
                 distance=r.euclidean_distance(odom)
             else:
-                r.publish_vel(0.5,0)
+                r.publish_vel(0.45,0)
                 distance=r.euclidean_distance(odom)
     # kill_node_manual()
 
@@ -78,7 +78,7 @@ if __name__ == '__main__':
    
         l=laser(robotname)
         r=robot(robotname)
-
+        map=rospy.get_param("/swarm/map")
         rate = rospy.Rate(8)
         rate.sleep()
         main()

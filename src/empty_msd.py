@@ -27,25 +27,25 @@ from    datetime import datetime
 # 	robot_0_path=np.array(sub_robot_0_path.poses)
 # 	robot_1_path=np.array(sub_robot_1_path.poses)
 
-# 	# print(distance.euclidean(init_poses[0], robot_1_pose))
-def callbackFCR(msg):
-	global FCR
-	FCR=msg.data
-	# print(FCR)
+# # 	# print(distance.euclidean(init_poses[0], robot_1_pose))
+# def callbackFCR(msg):
+# 	global FCR
+# 	FCR=msg.data
+# 	# print(FCR)
 
-def callbackOCR(msg):
-	global OCR
-	OCR=msg.data
-	# print(OCR)
+# def callbackOCR(msg):
+# 	global OCR
+# 	OCR=msg.data
+# 	# print(OCR)
 
-def callback(msg):
-	# global coverage_percentage
-	# global coverage_percentagetime
-	coverage_percentage.append(msg.data)
-	coverage_percentagetime.append(rospy.get_rostime().secs)	
-	if msg.data>95 :
+# def callback(msg):
+# 	# global coverage_percentage
+# 	# global coverage_percentagetime
+# 	coverage_percentage.append(msg.data)
+# 	coverage_percentagetime.append(rospy.get_rostime().secs)	
+# 	if msg.data>90 :
 		
-		msd()
+# 		msd()
 
 def Cumulative(lists):
     cu_list = []
@@ -100,14 +100,17 @@ def msd():
 		poses_List[x]=[i for i in robot_path[x].poses]
 		true=[i ]
 
-		print(prev[x][0],prev[x][1])
+
 		xd1[x]=[i for i,j in zip(poses_List[x],poses_List[x][1:]) if i.header.stamp.secs!=j.header.stamp.secs ]
-		xd3[x]=[math.pow(distance.euclidean([j.pose.position.x,j.pose.position.y],[prev[x][0],prev[x][1]]),2) for i,j in zip(xd1[x],xd1[x][1:]) if (j.pose.position.x!=i.pose.position.x and i.pose.position.y,j.pose.position.y)]
-		xd2[x]=[i.header.stamp.secs for i,j in zip(xd1[x],xd1[x][1:]) if (j.pose.position.x!=i.pose.position.x and i.pose.position.y,j.pose.position.y)]
-		# cds[x]=Cumulative(xd3[x])
+		# xd3[x]=[math.pow(distance.euclidean([j.pose.position.x,j.pose.position.y],[i.pose.position.x,i.pose.position.y]),2) for i,j in zip(xd1[x],xd1[x][1:]) if (j.pose.position.x!=i.pose.position.x and i.pose.position.y,j.pose.position.y)]
+		xd3[x]=[math.pow(distance.euclidean([j.pose.position.x,prev[x][0]],[i.pose.position.x,prev[x][1]]),2) for i in xd1[x]]
+
+		xd2[x]=[i.header.stamp.secs for i,j in zip(xd1[x],xd1[x][1:]) ]
+		del xd3[x][-1]
+		cds[x]=Cumulative(xd3[x])
 
 	# 	print(len(xd3[j]),len(xd2[j]))
-	col_totals = [ sum(x)/robots for x in zip(*xd3) ]
+	col_totals = [ sum(x)/robots for x in zip(*cds) ]
 	a=np.linspace(0,len(col_totals), len(col_totals),dtype=int)
 
   	# sumx=[    for i in cds]
@@ -144,28 +147,26 @@ def msd():
 	# xd=X[0]+X[1]+X[2]+X[3]+X[4]+X[5]
 	# for i in range(len(xd)):
 	# 	xd[i]=xd[i]/robots
-	ratio=np.array([[round(FCR,3),round(OCR,3)]])
+	# ratio=np.array([[round(FCR,3),round(OCR,3)]])
 	# plt.table(cellText=Data,colLabels=('25%','50%','95%'),rowLabels=["Coverage Time"],loc='bottom',bbox=[0.0,-1,1,0.3])
-	plt.table(cellText=ratio,colLabels=('FCR','OCR'),loc='bottom',bbox=[0.0,-0.5,1,0.3])
+	# plt.table(scellText=ratio,colLabels=('FCR','OCR'),loc='bottom',bbox=[0.0,-0.5,1,0.3])
 	# print(coverage_percentagetime)
 	ax[1].plot(coverage_percentagetime,coverage_percentage)
 	ax[1].set_title("Coverage")
-	ax[1].set_xlabel("Time(s)")
-	ax[1].set_ylabel("Coverage Percentage %")
-	ax[1].set_xlabel("Time (s)")
+	ax[0].set_xlabel("Time(s)")
+	ax[0].set_xlabel("coverage Percentage")
 	ax[0].set_title("MSD Mean Squared Displacement")
 	ax[0].set_xlabel("Time(s)")
-	ax[0].set_ylabel("MSD")
-	# ax[0].set_xlabel("MSD")
+	ax[0].set_xlabel("MSD")
 	# ax[0].plot(X[1],Y[1])
 	# ax[0].plot(X[0],Y[0])
 	# ax[0].plot(X[2],Y[2])
 	# ax[0].plot(X[3],Y[3])	
 	# ax[0].plot(X[4],Y[4])
 	# ax[0].plot(X[5],Y[5])
-	ax[0].plot(a,col_totals,'--')
-	# for x in range(robots):
-		# ax[0].plot(xd2[x],cds[x])
+	# ax[0].plot(a,col_totals,'--')
+	for x in range(robots):
+		ax[0].plot(xd2[x],xd3[x])
 	plt.tight_layout()
 	# ax.plot(xd,Y[0])
 	plt.subplots_adjust(bottom=0.2)
@@ -207,10 +208,7 @@ init_poses=np.array([[-2,0],[-1,0],[0,0],[0,1],[0,-2],[-2,-0.5],[-1,-0.5]])
 rospy.init_node('msd_calc', anonymous=True)
 t0= datetime.now()
 # rate = rospy.Rate(1)
-sub = rospy.Subscriber("/coverage_percentage",Float64,callback)
-subFCR = rospy.Subscriber("/FCR",Float64,callbackFCR)
-subOCR = rospy.Subscriber("/OCR",Float64,callbackOCR)
-# msd()
+msd()
 
 rospy.spin()		# main()
 		

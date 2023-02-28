@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import  rospy
 import  os
 import roslaunch
@@ -22,7 +22,7 @@ f.write("""
 )
   define block3 model
 (
-  size [30 0.5 0.5]
+  size [40 0.5 0.5]
   gui_nose 0
 )
 define block1 model
@@ -36,7 +36,11 @@ define block2 model
   size [10 0.5 0.5]
   gui_nose 0
 )
-
+define block5 model
+(
+  size [40 0.5 0.5]
+  gui_nose 0
+)
 define topurg ranger
 (
   sensor(       
@@ -102,10 +106,10 @@ interval_sim 100  # simulation timestep in milliseconds
 
 window
 ( 
-  size [ 745.000 448.000 ] 
+  size [ 1000.000 1000.000 ] 
 
-  rotate [ 0.000 -1.560 ]
-  scale 28.806 
+  rotate [ 0.000 0.0 ]
+  scale 20 
   show_grid 0
 )
 """)
@@ -129,9 +133,9 @@ if (map=="box") :
   """)
 elif (map=="corridor") :
   f.write("""
-  block2( pose [ 0 15 0 0 ] color "black")
+  block2( pose [ 0 20 0 0 ] color "black")
   block3( pose [ 5 0 0 90 ] color "black")
-  block2( pose [ 0 -15 0 0 ] color "black")
+  block2( pose [ 0 -20 0 0 ] color "black")
   block3( pose [ -5 0 0 90 ] color "black")
   
 
@@ -141,6 +145,17 @@ elif (map=="corridor") :
 
 
 
+elif (map=="empty") :
+  f.write("""
+  block5( pose [ 0 20 0 0 ] color "black")
+  block5( pose [ 20 0 0 90 ] color "black")
+  block5( pose [ 0 -20 0 0 ] color "black")
+  block5( pose [ -20 0 0 90 ] color "black")
+  
+
+
+
+  """)
 
 
 

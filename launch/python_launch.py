@@ -17,7 +17,7 @@ rospy.sleep(3)
 launch3 = roslaunch.parent.ROSLaunchParent(uuid, ["/home/nick/catkin_ws/src/random_walk/launch/odom_to_path.launch"])
 launch3.start()
 launch3 = roslaunch.parent.ROSLaunchParent(uuid, ["/home/nick/catkin_ws/src/random_walk/launch/testrw.launch"])
-launch3.start()
+# launch3.start()
 # rospy.loginfo("started")
 
 # rospy.sleep(3)

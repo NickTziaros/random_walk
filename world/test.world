@@ -6,7 +6,7 @@
 )
   define block3 model
 (
-  size [30 0.5 0.5]
+  size [40 0.5 0.5]
   gui_nose 0
 )
 define block1 model
@@ -20,7 +20,11 @@ define block2 model
   size [10 0.5 0.5]
   gui_nose 0
 )
-
+define block5 model
+(
+  size [40 0.5 0.5]
+  gui_nose 0
+)
 define topurg ranger
 (
   sensor(       
@@ -86,10 +90,10 @@ interval_sim 100  # simulation timestep in milliseconds
 
 window
 ( 
-  size [ 745.000 448.000 ] 
+  size [ 1000.000 1000.000 ] 
 
-  rotate [ 0.000 -1.560 ]
-  scale 28.806 
+  rotate [ 0.000 0.0 ]
+  scale 20 
   show_grid 0
 )
 
@@ -114,3 +118,7 @@ erratic( pose [  0 0  0 0  0] name "era2" color "blue")
 erratic( pose [  1 0  0 0  0] name "era3" color "blue")
 erratic( pose [  -2 -0.5  0 0  0] name "era4" color "blue")
 erratic( pose [  -1 -0.5  0 0  0] name "era5" color "blue")
+erratic( pose [  0 -0.5  0 0  0] name "era6" color "blue")
+erratic( pose [  1 -0.5  0 0  0] name "era7" color "blue")
+erratic( pose [  -2 -1.0  0 0  0] name "era8" color "blue")
+erratic( pose [  -1 -1.0  0 0  0] name "era9" color "blue")

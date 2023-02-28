@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import  rospy
 import  os
 import roslaunch
@@ -16,16 +16,21 @@ for i in range(robots):
 	f.write('<remap from="/robot_' + str(i)+'/scan" to ="/robot_' + str(i)+'/base_scan_1" />\n')
 
 
-if (map=="corridor"):
-	xmax=12
-	xmin=-12
-	ymax=20
-	ymin=-20
-elif (map=="box"):
-	xmax=12
-	xmin=-12
-	ymax=12
-	ymin=-12
+	if (map=="corridor"):
+		xmax=12
+		xmin=-12
+		ymax=20
+		ymin=-20
+	elif (map=="box"):
+		xmax=12
+		xmin=-12
+		ymax=12
+		ymin=-12
+	elif (map=="empty"):
+		xmax=50
+		xmin=-50
+		ymax=50
+		ymin=-50
 for i in range(robots):
 	f.write('''
 	<node pkg="gmapping" type="slam_gmapping" name="stage_slam_gmapping" output="screen" ns="robot_'''+ str(i)+'''">
@@ -34,9 +39,9 @@ for i in range(robots):
     '		<param name="map_frame"  value="/robot_' + str(i)+'/map"/>\n'+
     '''		<param name="map_update_interval" value="2.0"/>
     	<param name="maxUrange" value="4"/>
-    	<param name="minimumScore" value="100"/>
-    	<param name="linearUpdate" value="1"/>
-    	<param name="angularUpdate" value="1"/>
+    	<param name="minimumScore" value="150"/>
+    	<param name="linearUpdate" value="0.1"/>
+    	<param name="angularUpdate" value="0.1"/>
     	<param name="temporalUpdate" value="-0.5"/>
     	<param name="delta" value="0.05"/>
     	<param name="lskip" value="0"/>
@@ -45,13 +50,13 @@ for i in range(robots):
     	<param name="kernelSize" value="1"/>
     	<param name="lstep" value="0.05"/>
     	<param name="astep" value="0.05"/>
-    	<param name="iterations" value="5"/>
+    	<param name="iterations" value="10"/>
     	<param name="lsigma" value="0.075"/>
     	<param name="ogain" value="5.0"/>
-    	<param name="srr" value="0.0"/>
-    	<param name="srt" value="0.0"/>
-    	<param name="str" value="0.0"/>
-    	<param name="stt" value="0.0"/>
+    	<param name="srr" value="0"/>
+    	<param name="srt" value="0"/>
+    	<param name="str" value="0"/>
+    	<param name="stt" value="0"/>
     	<param name="resampleThreshold" value="0.5"/>
     	<param name="xmin" value="'''+ str(xmin)+'''"/>
     	<param name="ymin" value="'''+ str(ymin)+'''"/>

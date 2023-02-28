@@ -33,7 +33,7 @@ class laser():
 		# self.listener.waitForTransform("/{}/base_scan".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
 
 		# Stage
-		self.listener.waitForTransform("/{}/base_laser_link_0".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(5))
+		self.listener.waitForTransform("/{}/base_laser_link_0".format(self.robotname), "/{}/odom".format(self.robotname), rospy.Time(0),rospy.Duration(15))
 
 
 
