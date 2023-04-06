@@ -4,6 +4,7 @@ import rospy
 from std_msgs.msg import String,Float64
 from nav_msgs.msg import OccupancyGrid
 import numpy as np
+import  time 
 
 def callback(msg):
     global merged_map
@@ -122,16 +123,41 @@ def compare():
 
 
 def main():
-
-    while not any('/merged_map' in subl for subl in rospy.get_published_topics()) :
-        print("merged_map error")
-        rospy.sleep(1)
-
     rospy.init_node('compare_maps', anonymous=True)
+    topic_depend_1 = '/merged_map'
+    topic_depend_2  = '/ground_truth'
+    message_type = OccupancyGrid
+    retry_interval=1
+ 
+    while not rospy.is_shutdown():
+
+        try:
+            rospy.loginfo('Waiting for publisher for topic %s...',topic_depend_2)
+            rospy.wait_for_message(topic_depend_2, message_type, timeout=1)
+            rospy.loginfo('Got message for topic %s...',topic_depend_2)
+            break
+        except rospy.ROSException:
+            rospy.logwarn("No publisher available for topic %s. Retrying in %s seconds...",topic_depend_2,retry_interval)
+            time.sleep(retry_interval)
+
+    while not rospy.is_shutdown():
+
+        try:
+            rospy.loginfo('Waiting for publisher for topic %s...',topic_depend_1)
+            rospy.wait_for_message(topic_depend_1, message_type, timeout=1)
+            rospy.loginfo('Got message for topic %s...',topic_depend_1)
+            break
+        except rospy.ROSException:
+            rospy.logwarn("No publisher available for topic %s. Retrying in %s seconds...",topic_depend_1,retry_interval)
+            time.sleep(retry_interval)
+
+    
     rospy.Subscriber("/merged_map", OccupancyGrid , callback)
     rospy.Subscriber("/ground_truth", OccupancyGrid , ground_truth_callback)
-    # rospy.Subscriber("/my_namespace/map", OccupancyGrid , callback)
- 
+
+
+    
+     
     global pub 
     global pub1
     global pub2

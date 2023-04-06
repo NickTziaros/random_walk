@@ -24,6 +24,42 @@ def coverage_callback(msg):
     coverage_percentage=msg.data
 
 def main():
+
+    rospy.init_node('Random_Walk', anonymous=True)
+    topic_name = '/coverage_percentage'
+    message_type = Float64
+    retry_interval=1
+    while not rospy.is_shutdown():
+        try:
+            rospy.wait_for_message(topic_name, message_type, timeout=1)
+            break
+        except rospy.ROSException:
+            rospy.logwarn("No publisher available for topic /coverage_percentage. Retrying in %s seconds...",retry_interval)
+            time.sleep(retry_interval)
+
+    args=rospy.myargv(argv=sys.argv)
+    robotname= args[1]
+    
+    # print(rospy.get_published_topics())
+    subs = rospy.Subscriber("/coverage_percentage",Float64,coverage_callback)
+   
+
+
+    
+
+    l=laser(robotname)
+    r=robot(robotname)
+    map=rospy.get_param("/swarm/map")
+    rate = rospy.Rate(8)
+    rate.sleep()
+
+
+
+
+
+
+
+
     VonMisesKappa=rospy.get_param("/swarm/VonMisesKappa")
     VonMisesMu=rospy.get_param("/swarm/VonMisesMu")
     flag=0
@@ -54,7 +90,7 @@ def main():
             #     flag1=1
                 # print("time to reach " + str(25) + "%" + "coverage is: "+ str(t3))
             # rospy.loginfo(l.get_front_min_range())
-            if l.get_front_min_range()<1.5:
+            if l.get_front_min_range()<1:
                 new_heading=np.random.vonmises(VonMisesMu,VonMisesKappa)  
                 r.fix_yaw(new_heading)
                 odom=r.get_odom()
@@ -66,21 +102,5 @@ def main():
 
 
 if __name__ == '__main__':
-    try:
-        while not  any('/coverage_percentage' in subl for subl in rospy.get_published_topics()) :
-            print("The coverage_percentage topic is not published. Retrying.........")
-            rospy.sleep(1)
-        args=rospy.myargv(argv=sys.argv)
-        robotname= args[1]
-        rospy.init_node('Random_Walk', anonymous=True)
-        # print(rospy.get_published_topics())
-        subs = rospy.Subscriber("/coverage_percentage",Float64,coverage_callback)
-   
-        l=laser(robotname)
-        r=robot(robotname)
-        map=rospy.get_param("/swarm/map")
-        rate = rospy.Rate(8)
-        rate.sleep()
-        main()
-    except rospy.ROSInterruptException:
-        pass
+
+    main()
