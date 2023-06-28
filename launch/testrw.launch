@@ -11,23 +11,5 @@
 
 
 	</group>
-<group ns="$(arg robot_name)_2">
-
-	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_2 "></node> 
-
-
-	</group>
-<group ns="$(arg robot_name)_3">
-
-	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_3 "></node> 
-
-
-	</group>
-<group ns="$(arg robot_name)_4">
-
-	<node pkg="random_walk" name="rw_node" type="rw_node.py" output="screen" args="$(arg robot_name)_4 "></node> 
-
-
-	</group>
 <node pkg="random_walk" name="coverage_percentage" type="map_compare.py" output="screen"></node>
 </launch>

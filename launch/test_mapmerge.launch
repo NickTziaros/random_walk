@@ -1,9 +1,6 @@
 <launch>
 <arg name="0_robot"  default="robot_0"/>
 <arg name="1_robot"  default="robot_1"/>
-<arg name="2_robot"  default="robot_2"/>
-<arg name="3_robot"  default="robot_3"/>
-<arg name="4_robot"  default="robot_4"/>
 
           <group ns="/robot_0/map_merge">
           <param name="init_pose_x" value="-2"/>
@@ -14,24 +11,6 @@
           <group ns="/robot_1/map_merge">
           <param name="init_pose_x" value="-1"/>
           <param name="init_pose_y" value="0"/>
-          <param name="init_pose_z" value=" 0.0"/>
-          <param name="init_pose_yaw"   value="0"/>
-          </group>
-          <group ns="/robot_2/map_merge">
-          <param name="init_pose_x" value="0"/>
-          <param name="init_pose_y" value="0"/>
-          <param name="init_pose_z" value=" 0.0"/>
-          <param name="init_pose_yaw"   value="0"/>
-          </group>
-          <group ns="/robot_3/map_merge">
-          <param name="init_pose_x" value="1"/>
-          <param name="init_pose_y" value="0"/>
-          <param name="init_pose_z" value=" 0.0"/>
-          <param name="init_pose_yaw"   value="0"/>
-          </group>
-          <group ns="/robot_4/map_merge">
-          <param name="init_pose_x" value="-2"/>
-          <param name="init_pose_y" value="-0.5"/>
           <param name="init_pose_z" value=" 0.0"/>
           <param name="init_pose_yaw"   value="0"/>
           </group>
@@ -48,7 +27,4 @@
     </node>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 0_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 0_robot)/map 200"/>
   <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 1_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 1_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 2_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 2_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 3_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 3_robot)/map 200"/>
-  <node pkg="tf" type="static_transform_publisher" name="world_to_$(arg 4_robot)_tf_broadcaster"  args="0 0 0 0 0 0 /map /$(arg 4_robot)/map 200"/>
 </launch>

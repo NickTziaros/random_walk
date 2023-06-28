@@ -15,9 +15,9 @@ if (robots == None):
      ROS_ERROR("Error in getting the robots param\n");
 
 f.write("""
- define block model
+  define block model
 (
-  size [21.000 0.500 0.500]
+  size [20 0.5 0.5]
   gui_nose 0
 )
   define block3 model
@@ -33,7 +33,7 @@ define block1 model
 
 define block2 model
 (
-  size [4.000 1.000 1.500]
+  size [10 0.5 0.5]
   gui_nose 0
 )
 define block5 model
@@ -47,12 +47,12 @@ define topurg ranger
     range [ 0.0  4.5 ]
     fov 360
     ranger_return 1.0
-   samples 720
+   samples 360
   )
 
   # generic model properties
   color "black"
-  size [ 0.050 0.050 0.100 ]
+  size [ 0.05 0.05 0.1 ]
 )
 define topurg1 ranger
 (
@@ -60,25 +60,25 @@ define topurg1 ranger
     range [ 0.0  4.5 ]
     fov 360
     ranger_return 1.0
-   samples 720
+   samples 360
   )
 
   # generic model properties
   color "black"
-  size [ 0.050 0.050 0.100 ]
+  size [ 0.05 0.05 0.1 ]
 )
 
 define erratic position
 (
   #size [0.415 0.392 0.25]
-  size [0.250 0.250 0.250]
-  ranger_return 1.000
-  origin [-0.050 0.000 0.000 0.000]
+  size [0.25 0.25 0.25]
+  ranger_return 1.0
+  origin [-0.05 0 0 0]
   gui_nose 1
   drive "diff"
   odom_error [0.0 0.0 0.00 0.0]
-  topurg(pose [ 0.050 0.000 -0.200 0.000 ])
-  topurg1(pose [ 0.050 0.000 0.000 0.000 ])
+  topurg(pose [ 0.050 0.000 -0.2 0.000 ])
+  topurg1(pose [ 0.050 0.000 0 0.000 ])
 )
 
 define floorplan model
@@ -106,27 +106,27 @@ interval_sim 100  # simulation timestep in milliseconds
 
 window
 ( 
-  size [ 1000 1000 ] 
+  size [ 1000.000 1000.000 ] 
 
-  rotate [ 0.000 0.000 ]
-  scale 38.974 
-  show_grid 1
+  rotate [ 0.000 0.0 ]
+  scale 20 
+  show_grid 0
 )
 """)
 if (map=="box") :
   f.write("""
-  block( pose [ 0.062 10.279 0.000 0.000 ] color "black")
-  block( pose [ 10.350 -0.018 0.000 90.000 ] color "black")
-  block( pose [ 0.062 -10.273 0.000 0.000 ] color "black")
-  block( pose [ -10.217 0.000 0.000 90.000 ] color "black")
-  block2( pose [ 4.081 2.500 0.000 0.000 ] color "black")
-  block2( pose [ -1.557 -5.008 0.000 90.000 ] color "black")
-  block2( pose [ 1.564 5.008 0.000 90.000 ] color "black")
-  block2( pose [ -4.057 -2.482 0.000 0.000 ] color "black")
-  #block1( pose [ 5.5 6.5 0 0 ] color "black")
-  #block1( pose [ -5.5 6.5 0 0 ] color "black")
-  #block1( pose [ 5.5 -6.5 0 0 ] color "black")
-  #block1( pose [ -5.5 -6.5 0 0 ] color "black")
+  block( pose [ 0 10 0 0 ] color "black")
+  block( pose [ 10 0 0 90 ] color "black")
+  block( pose [ 0 -10 0 0 ] color "black")
+  block( pose [ -10 0 0 90 ] color "black")
+  block1( pose [ 3.5 2.5 0 0 ] color "black")
+  block1( pose [ -3.5 2.5 0 0 ] color "black")
+  block1( pose [ 3.5 -2.5 0 0 ] color "black")
+  block1( pose [ -3.5 -2.5 0 0 ] color "black")
+  block1( pose [ 5.5 6.5 0 0 ] color "black")
+  block1( pose [ -5.5 6.5 0 0 ] color "black")
+  block1( pose [ 5.5 -6.5 0 0 ] color "black")
+  block1( pose [ -5.5 -6.5 0 0 ] color "black")
 
 
 

@@ -1,0 +1,8 @@
+<launch>
+
+
+<!-- Starts the Stage Simulation -->
+ <node name="Stage" pkg="stage_ros" type="stageros" args="/home/nick/catkin_ws/src/random_walk/world/hexagon.world">
+    </node> 
+
+</launch>

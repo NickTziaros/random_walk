@@ -50,11 +50,11 @@ def callback(msg):
 def msd():
 
 
-	fig,ax=plt.subplots(figsize=(12, 8))
+	fig,ax=plt.subplots(figsize=(12, 10))
 
 
 	ratio=np.array([[round(FCR,3),round(OCR,3)]])
-	
+	print(ratio)
 	
 	ax.plot(coverage_percentagetime,coverage_percentage)
 	ax.set_title("Coverage")
@@ -95,6 +95,9 @@ retry_interval = 1
 while not rospy.is_shutdown():
     try:
         rospy.wait_for_message('/coverage_percentage', Float64, timeout=1)
+        rospy.wait_for_message('/FCR', Float64, timeout=1)
+        rospy.wait_for_message('/OCR', Float64, timeout=1)
+
         break
     except rospy.ROSException:
         rospy.logwarn("No publisher available for topic /coverage_percentage. Retrying in 1 seconds...")

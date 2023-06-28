@@ -1,72 +1,48 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 
 import rospy
 from nav_msgs.msg import OccupancyGrid
-from std_msgs.msg import Float32
 
-class OccupancyGridComparator:
-    def __init__(self):
-        self.map1 = None
-        self.map2 = None
-        self.width = None
-        self.height = None
-        self.publisher = rospy.Publisher("/coverage_percentage", Float32, queue_size=10)
+def crop_and_resize(map_msg):
+    width = map_msg.info.width
+    height = map_msg.info.height
 
-        # Wait for map1 and map2 topics to be published
-        rospy.loginfo("Waiting for map1 and map2 topics to be published...")
-        while self.map1 is None or self.map2 is None:
-            try:
-                self.map1 = rospy.wait_for_message("map1_topic", OccupancyGrid, timeout=5.0)
-                self.map2 = rospy.wait_for_message("map2_topic", OccupancyGrid, timeout=5.0)
-            except rospy.exceptions.ROSException:
-                rospy.logwarn("Map topics not yet published, retrying...")
+    if height < 2:
+        rospy.logerr("Map is too small to crop the last row")
+        return None
 
-        # Get map size
-        self.width = self.map1.info.width
-        self.height = self.map1.info.height
+    # Crop last row
+    cropped_data = map_msg.data[:width * (height - 1)]
+    cropped_info = map_msg.info
+    cropped_info.height = height - 1
 
-        # Calculate similarity
-        similarity = self.calculate_similarity()
+    # Resize to 480x480
+    new_width = 480
+    new_height = 480
+    step_x = width // new_width
+    step_y = height // new_height
 
-        # Publish result
-        percentage = Float32()
-        percentage.data = similarity
-        self.publisher.publish(percentage)
+    new_data = []
+    for y in range(new_height):
+        for x in range(new_width):
+            index = x * step_x + y * step_y * width
+            new_data.append(cropped_data[index])
 
-        # Subscribe to map1 and map2 topics
-        self.map1_subscriber = rospy.Subscriber("map1_topic", OccupancyGrid, self.map1_callback)
-        self.map2_subscriber = rospy.Subscriber("map2_topic", OccupancyGrid, self.map2_callback)
+    cropped_info.width = new_width
+    cropped_info.height = new_height
 
-    def map1_callback(self, msg):
-        self.map1 = msg
+    cropped_map = OccupancyGrid()
+    cropped_map.header = map_msg.header
+    cropped_map.info = cropped_info
+    cropped_map.data = new_data
 
-        # Calculate similarity
-        similarity = self.calculate_similarity()
-
-        # Publish result
-        percentage = Float32()
-        percentage.data = similarity
-        self.publisher.publish(percentage)
-
-    def map2_callback(self, msg):
-        self.map2 = msg
-
-    def calculate_similarity(self):
-        if self.map1 is None or self.map2 is None:
-            return 0.0
-
-        # Count number of matching cells
-        num_matching_cells = 0
-        for i in range(self.width * self.height):
-            if self.map1.data[i] == self.map2.data[i]:
-                num_matching_cells += 1
-
-        # Calculate percentage of similarity
-        similarity = float(num_matching_cells) / float(self.width * self.height)
-
-        return similarity
+    return cropped_map
 
 if __name__ == '__main__':
-    rospy.init_node('occupancy_grid_comparator')
-    occupancy_grid_comparator = OccupancyGridComparator()
-    rospy.spin()
+    rospy.init_node('occupancy_grid_cropper')
+
+    # Subscribe to map topic
+    map_sub = rospy.Subscriber('/merged_map', OccupancyGrid, crop_and_resize)
+
+    # Publish new map to topic
+    new_map_pub =

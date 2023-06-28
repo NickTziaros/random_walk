@@ -2,7 +2,7 @@
 
 
 <!-- Starts the Stage Simulation -->
- <node name="Stage" pkg="stage_ros" type="stageros" args="/home/nick/catkin_ws/src/random_walk/world/test.world">
+ <node name="Stage" pkg="stage_ros" type="stageros" args="/home/nick/catkin_ws/src/random_walk/world/test2.world">
     </node> 
 
 </launch>

@@ -1,7 +1,7 @@
 
-  define block model
+ define block model
 (
-  size [20.000 0.500 0.500]
+  size [21.000 0.500 0.500]
   gui_nose 0
 )
   define block3 model
@@ -17,7 +17,7 @@ define block1 model
 
 define block2 model
 (
-  size [5.000 0.500 0.500]
+  size [4.000 1.000 1.500]
   gui_nose 0
 )
 define block5 model
@@ -31,7 +31,7 @@ define topurg ranger
     range [ 0.0  4.5 ]
     fov 360
     ranger_return 1.0
-   samples 360
+   samples 720
   )
 
   # generic model properties
@@ -44,7 +44,7 @@ define topurg1 ranger
     range [ 0.0  4.5 ]
     fov 360
     ranger_return 1.0
-   samples 360
+   samples 720
   )
 
   # generic model properties
@@ -93,18 +93,18 @@ window
   size [ 1000 1000 ] 
 
   rotate [ 0.000 0.000 ]
-  scale 20.000 
-  show_grid 0
+  scale 38.974 
+  show_grid 1
 )
 
-  block( pose [ 0.000 10.000 0.000 0.000 ] color "black")
-  block( pose [ 10.000 0.000 0.000 90.000 ] color "black")
-  block( pose [ 0.000 -10.000 0.000 0.000 ] color "black")
-  block( pose [ -10.000 0.000 0.000 90.000 ] color "black")
-  block2( pose [ 4.800 2.500 0.000 0.000 ] color "black")
-  block2( pose [ -1.500 -4.750 0.000 90.000 ] color "black")
-  block2( pose [ 2.050 4.750 0.000 90.000 ] color "black")
-  block2( pose [ -4.250 -2.500 0.000 0.000 ] color "black")
+  block( pose [ 0.062 10.279 0.000 0.000 ] color "black")
+  block( pose [ 10.350 -0.018 0.000 90.000 ] color "black")
+  block( pose [ 0.062 -10.273 0.000 0.000 ] color "black")
+  block( pose [ -10.217 0.000 0.000 90.000 ] color "black")
+  block2( pose [ 4.081 2.500 0.000 0.000 ] color "black")
+  block2( pose [ -1.557 -5.008 0.000 90.000 ] color "black")
+  block2( pose [ 1.564 5.008 0.000 90.000 ] color "black")
+  block2( pose [ -4.057 -2.482 0.000 0.000 ] color "black")
   #block1( pose [ 5.5 6.5 0 0 ] color "black")
   #block1( pose [ -5.5 6.5 0 0 ] color "black")
   #block1( pose [ 5.5 -6.5 0 0 ] color "black")
@@ -112,4 +112,5 @@ window
 
 
 
-  erratic( pose [  -2.000 0.000  0.000 0.000  0] name "era0" color "blue")
+  erratic( pose [  -2 0  0 0  0] name "era0" color "blue")
+erratic( pose [  -1 0  0 0  0] name "era1" color "blue")

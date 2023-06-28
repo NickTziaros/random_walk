@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 # license removed for brevity
 import rospy
 from std_msgs.msg import String,Float64
@@ -41,8 +41,8 @@ def compare(ground_truth):
     merged_map_cropped= merged_map_2d[40:440,40:445]
 
     # ground_truth_map_2d=convert2_2D(ground_truth_map)
-    for i in range(480):
-        for j in range(485):
+    for i in range(ground_truth_width-1):
+        for j in range(ground_truth_height):
             ground_truth_fill[i,j]=ground_truth_map_2d[i,j]
     for i in range(merged_map_height):
         for j in range(merged_map_width):
@@ -55,7 +55,7 @@ def compare(ground_truth):
     grid.data=merged_map_cropped_flat   
     grid.info.width=405
     # ground_truth_cropped.shape[0]
-    grid.info.height=400
+    grid.info.height=400    
     # ground_truth_cropped.shape[1]
     grid.info.origin.position.x=ground_truth_mapix
     grid.info.origin.position.y=ground_truth_mapiy

@@ -1,7 +1,7 @@
 <launch>
 <master auto="start"/>
 <!--Remaps the /map topic produced by map_server to /ground_truth  -->
-<remap from="/map" to ="/ground_truth" /> 
+<!-- <remap from="/map" to ="/ground_truth" />  -->
 
 <rosparam file="$(find random_walk)/config/config.yaml" />
 
@@ -10,7 +10,7 @@
 <node pkg="random_walk" name="add_mapmerge" type="add_mapmerge.py" output="screen"></node>
 
 <!--Pass the ground truth map to the as an argument  -->
-<arg name="map_file" default="$(find random_walk)/stage_results/ground_truth_2.yaml"/>
+<arg name="map_file" default="$(find random_walk)/stage_results/final.yaml"/>
 
 
 <!--/home/nikos/catkin_ws/src/random_walk/world/willow-four-erratics.world -->
